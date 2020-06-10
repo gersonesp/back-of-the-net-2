@@ -14,9 +14,6 @@ async function main() {
   try {
     await client.connect();
     console.log("Connected to cluster!!");
-
-    // TODO Remove
-    await listDatabases(client);
   } catch (err) {
     console.error(err);
   } finally {
@@ -25,11 +22,3 @@ async function main() {
 }
 
 main().catch(console.error);
-
-// TODO Remove
-async function listDatabases(client) {
-  databasesList = await client.db().admin().listDatabases();
-
-  console.log("Databases:");
-  databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
-}
