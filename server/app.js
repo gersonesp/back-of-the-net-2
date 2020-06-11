@@ -3,9 +3,11 @@ const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const passport = require("passport");
 
+const configurePassport = require("./config/passport");
 const indexRouter = require("./routes/index");
-const pingRouter = require("./routes/ping");
+const usersRouter = require("./routes/api/users");
 
 // connect to MongoDB
 require("./config/mongoose");
@@ -20,8 +22,14 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+configurePassport(passport);
+
+// Routes
 app.use("/", indexRouter);
-app.use("/ping", pingRouter);
+app.use("/api/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

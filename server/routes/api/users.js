@@ -1,15 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {passportSecret} = require("../../config/keys");
+const { passportSecret } = require("../../config/keys");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 // Load User Model
-const User = requrie("../../models/User");
+const User = require("../../models/User");
 
 router.post("/register", async (req, res) => {
   // Form validation
@@ -34,12 +35,23 @@ router.post("/register", async (req, res) => {
 
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if(err) throw err;
-              newUser.password = hash;
-              await newUser.save()
-          })
-      })
+        bcrypt.hash(newUser.password, salt, async (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          await newUser.save();
+
+          // Create JWT Payload
+          const payload = {
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+          };
+
+          // Sign token
+          const token = jwt.sign(payload, passportSecret);
+          res.status(200).send({ token, user: payload });
+        });
+      });
     }
   } catch (err) {
     console.error(err);
@@ -49,11 +61,11 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   // Form validation
-  const {errors, isValid} = validateLoginInput(req.body)
+  const { errors, isValid } = validateLoginInput(req.body);
 
   // Check validation
-  if(!isValid) {
-    return res.status(400).send(errors)
+  if (!isValid) {
+    return res.status(400).send(errors);
   }
 
   const email = req.body.email;
@@ -61,33 +73,33 @@ router.post("/login", async (req, res) => {
 
   // Find user by email
   try {
-    const user = await User.findOne({email})
+    const user = await User.findOne({ email });
 
-    if(!user) {
-      return res.status(404).send({response: "Email not found"})
+    if (!user) {
+      return res.status(404).send({ response: "Email not found" });
     }
 
     // Check password
     const hash = user.password;
-    const match = await bcrypt.compare(password, user.password)
-    if(!match) {
-      res.status(401).send({ response: "Password incorrect" })
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      res.status(401).send({ response: "Password incorrect" });
     } else {
       // User matched
       // Create JWT Payload
       const payload = {
         id: user.id,
-        name: user.name
+        name: user.name,
       };
 
       // Sign token
       const token = jwt.sign(payload, passportSecret);
-      res.status(200).send({token, user: payload})
+      res.status(200).send({ token, user: payload });
     }
   } catch (err) {
-    console.error(err)
+    console.error(err);
     res.status(500).end();
   }
-})
+});
 
 module.exports = router;
