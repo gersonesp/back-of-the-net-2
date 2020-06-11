@@ -8,7 +8,7 @@ const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
 
 // connect to MongoDB
-require("./config/mongo");
+require("./config/mongoose");
 
 const { json, urlencoded } = express;
 
