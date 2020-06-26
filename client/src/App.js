@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import UserContext from "./context/UserContext";
@@ -13,27 +13,24 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [redirect, setRedirect] = useState(false);
-
-  const prevRedirect = useRef();
 
   useEffect(() => {
-    prevRedirect.current = redirect;
     try {
-      // const AuthStr = localStorage.token;
-      // async function getUserData() {
-      //   const { data } = await axios.get("/api/users/me", {
-      //     headers: { Authorization: "Bearer " + AuthStr },
-      //   });
-      //   setUser(data);
-      // }
-      // if (localStorage.token && redirect === prevRedirect.current) {
-      //   getUserData();
-      // }
+      const AuthStr = localStorage.token;
+      async function getUserData() {
+        const { data } = await axios.get("/api/users/me", {
+          headers: { Authorization: "Bearer " + AuthStr },
+        });
+        setUser(data);
+      }
+
+      if (localStorage.token) {
+        getUserData();
+      }
     } catch (err) {
       console.error(err);
     }
-  }, [redirect]);
+  }, []);
 
   return (
     <UserContext.Provider
@@ -42,8 +39,7 @@ function App() {
         setUser,
         logout: () => {
           setUser(null);
-          setRedirect(!redirect);
-          remove("token"); // TO DO: agree on a name for this token
+          remove("token");
           delete axios.defaults.headers.common.Authorization;
         },
       }}
@@ -58,8 +54,7 @@ function App() {
 
           {!user && (
             <Switch>
-              <Route path="/login" component={Login} />
-              <Redirect from="/" exact to="/login" />
+              <Route component={Login} />
             </Switch>
           )}
         </BrowserRouter>

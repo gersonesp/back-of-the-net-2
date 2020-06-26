@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "../context/UserContext";
 
-const Navbar = () => (
-  <div className="navbarContainer">
-    <div>
-      <NavLink to="/">BACKOFTHENET</NavLink>
+const Navbar = () => {
+  const { logout } = useContext(UserContext);
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  return (
+    <div className="navbarContainer">
+      <div>
+        <NavLink to="/">BACKOFTHENET</NavLink>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Navbar;

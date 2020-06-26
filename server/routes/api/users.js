@@ -8,6 +8,7 @@ const { passportSecret } = require("../../config/keys");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const authenticate = require("../../middlewares/authenticate");
 
 // Load User Model
 const User = require("../../models/User");
@@ -100,6 +101,11 @@ router.post("/login", async (req, res) => {
     console.error(err);
     res.status(500).end();
   }
+});
+
+router.get("/me", authenticate, (req, res) => {
+  const { id, email, name } = req.user;
+  res.json({ id, email, name });
 });
 
 module.exports = router;
