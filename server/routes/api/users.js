@@ -26,7 +26,7 @@ router.post("/register", async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (user) {
-      return res.status(400).send({ response: "Email already exists" });
+      return res.status(400).send({ email: "Email already exists" });
     } else {
       const newUser = new User({
         name: req.body.name,
@@ -77,14 +77,14 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).send({ response: "Email not found" });
+      return res.status(404).send({ email: "Email not found" });
     }
 
     // Check password
     const hash = user.password;
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      res.status(401).send({ response: "Password incorrect" });
+      res.status(401).send({ password: "Password incorrect" });
     } else {
       // User matched
       // Create JWT Payload

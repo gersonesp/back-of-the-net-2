@@ -7,6 +7,7 @@ import { theme } from "./themes/theme";
 import UserContext from "./context/UserContext";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import { remove } from "./utils/storage";
 
 import "./App.css";
@@ -54,6 +55,8 @@ function App() {
 
           {!user && (
             <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Signup} />
               <Route component={Login} />
             </Switch>
           )}
