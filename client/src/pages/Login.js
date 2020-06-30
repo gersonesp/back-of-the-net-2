@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { store } from "../utils/storage";
 import UserContext from "../context/UserContext";
 
+import "./LoginSignup.css";
+
 const Login = () => {
   const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
@@ -57,7 +59,7 @@ const Login = () => {
           />
         </div>
 
-        {errors.email ? <div>{errors.email}</div> : null}
+        {errors.email ? <div className="authError">{errors.email}</div> : null}
 
         <div className="labelInput">
           <label>Password</label>
@@ -69,15 +71,17 @@ const Login = () => {
           />
         </div>
 
-        {errors.password ? <div>{errors.password}</div> : null}
+        {errors.password ? (
+          <div className="authError">{errors.password}</div>
+        ) : null}
 
         <div className="buttonContainer">
           <button type="submit">Log In</button>
         </div>
-      </div>
 
-      <div>
-        New member? <Link to="/register">Sign Up here.</Link>
+        <div className="altForm">
+          New member? <Link to="/register"> Sign Up here.</Link>
+        </div>
       </div>
     </form>
   );

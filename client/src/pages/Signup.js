@@ -62,7 +62,7 @@ const Signup = () => {
           <input type="name" name="name" value={name} onChange={handleChange} />
         </div>
 
-        {errors.name ? <div>{errors.name}</div> : null}
+        {errors.name ? <div className="authError">{errors.name}</div> : null}
 
         <div className="labelInput">
           <label>Email</label>
@@ -74,7 +74,7 @@ const Signup = () => {
           />
         </div>
 
-        {errors.email ? <div>{errors.email}</div> : null}
+        {errors.email ? <div className="authError">{errors.email}</div> : null}
 
         <div className="labelInput">
           <label>Password</label>
@@ -86,7 +86,9 @@ const Signup = () => {
           />
         </div>
 
-        {errors.password ? <div>{errors.password}</div> : null}
+        {errors.password ? (
+          <div className="authError">{errors.password}</div>
+        ) : null}
 
         <div className="labelInput">
           <label>Confirm Password</label>
@@ -98,15 +100,17 @@ const Signup = () => {
           />
         </div>
 
-        {errors.password2 ? <div>{errors.password2}</div> : null}
+        {errors.password2 ? (
+          <div className="authError">{errors.password2}</div>
+        ) : null}
 
         <div className="buttonContainer">
           <button type="submit">Signup</button>
         </div>
-      </div>
 
-      <div>
-        Already a member? <Link to="/login">Login here.</Link>
+        <div className="altForm">
+          Already a member? <Link to="/login">Login here.</Link>
+        </div>
       </div>
     </form>
   );
