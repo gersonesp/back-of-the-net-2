@@ -8,6 +8,9 @@ import UserContext from "./context/UserContext";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Matches from "./pages/Matches";
+import Livewatch from "./pages/Livewatch";
+import Table from "./pages/Table";
 import { remove } from "./utils/storage";
 
 import "./App.css";
@@ -48,9 +51,13 @@ function App() {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           {user && (
-            <Switch>
-              <Route path="/" component={Navbar} />
-            </Switch>
+            <>
+              <Navbar />
+              <Route path="/livewatch" component={Livewatch} />
+              <Route path="/table" component={Table} />
+              <Route exact path="/" component={Matches} />
+              {/* <Route component={Matches} /> */}
+            </>
           )}
 
           {!user && (
