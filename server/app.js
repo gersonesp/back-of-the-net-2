@@ -9,6 +9,7 @@ const passport = require("passport");
 const configurePassport = require("./config/passport");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/api/users");
+const fixturesRouter = require("./routes/api/fixtures");
 
 // connect to MongoDB
 require("./config/mongoose");
@@ -31,6 +32,7 @@ configurePassport(passport);
 // Routes
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/fixtures", fixturesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
