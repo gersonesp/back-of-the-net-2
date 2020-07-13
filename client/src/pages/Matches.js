@@ -18,6 +18,7 @@ const Matches = () => {
       const seen = {};
       const filteredDays = [];
 
+      // eslint-disable-next-line
       data.map(({ kickoff_time }) => {
         if (
           !seen.hasOwnProperty(kickoff_time.slice(0, kickoff_time.indexOf("T")))

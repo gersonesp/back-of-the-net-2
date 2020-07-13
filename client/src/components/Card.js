@@ -1,4 +1,5 @@
 import React from "react";
+import Match from "./Match";
 
 import "./Card.css";
 
@@ -7,9 +8,9 @@ const Card = ({ date, fixtures }) => {
     <ul className="card">
       <div className="cardDate">{date}</div>
       {fixtures.map(
-        ({ kickoff_time, id }) =>
+        ({ kickoff_time, id, team_a, team_h }) =>
           date === kickoff_time.slice(0, kickoff_time.indexOf("T")) && (
-            <li key={id}>{id}</li>
+            <Match key={id} awayTeam={team_a} homeTeam={team_h} />
           )
       )}
     </ul>
