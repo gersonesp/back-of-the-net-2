@@ -1,0 +1,16 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    margin-bottom: 1rem;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.cardDate {
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+    color: #646464;
+    border-bottom: 1px solid #e6e6e6;
+}

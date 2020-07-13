@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Card from "../components/Card";
+import "./Matches.css";
 
 const Matches = () => {
   const [fixtures, setFixtures] = useState([]);
   const [days, setDays] = useState([]);
+  const [gameweek, setGameweek] = useState(1);
 
   useEffect(() => {
     const getGameweekFixtures = async () => {
       const { data } = await axios.get("/api/fixtures/gameweek-matches");
       setFixtures(data);
+      setGameweek(data[0].event);
 
       const seen = {};
       const filteredDays = [];
@@ -30,11 +33,12 @@ const Matches = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Mathes</h1>
-      <div>
+    <div className="matchesContainer">
+      <h1>Matches</h1>
+      <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
+      <div className="matchesList">
         {days.map((date) => (
-          <Card date={date} fixtures={fixtures} />
+          <Card key={date} date={date} fixtures={fixtures} />
         ))}
       </div>
     </div>

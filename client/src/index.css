@@ -17,6 +17,12 @@ body {
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 input {
   font-size: 1rem;
   -webkit-appearance: none;
@@ -32,4 +38,18 @@ button {
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+@media (min-width: 700px) {
+
+  .matchesContainer,
+  .navbar ul,
+  .LiveWatch {
+    margin: 0 auto;
+    max-width: 700px;
+  }
+
+  /* .LiveWatch .playersPredictions .playerPrediction {
+    flex-grow: 1.155;
+  } */
 }
