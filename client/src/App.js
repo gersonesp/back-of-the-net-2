@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import UserContext from "./context/UserContext";
+import TeamsContext from "./context/TeamsContext";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -17,19 +18,27 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [teams, setTeams] = useState({});
 
   useEffect(() => {
     try {
       const AuthStr = localStorage.token;
-      async function getUserData() {
+      const getUserData = async () => {
         const { data } = await axios.get("/api/users/me", {
           headers: { Authorization: "Bearer " + AuthStr },
         });
         setUser(data);
-      }
+      };
+
+      const getTeams = async () => {
+        const { data } = await axios.get("/api/teams");
+
+        setTeams(data);
+      };
 
       if (localStorage.token) {
         getUserData();
+        getTeams();
       }
     } catch (err) {
       console.error(err);
@@ -48,27 +57,29 @@ function App() {
         },
       }}
     >
-      <MuiThemeProvider theme={theme}>
-        <BrowserRouter>
-          {user && (
-            <>
-              <Navbar />
-              <Route path="/livewatch" component={Livewatch} />
-              <Route path="/table" component={Table} />
-              <Route exact path="/" component={Matches} />
-              {/* <Route component={Matches} /> */}
-            </>
-          )}
+      <TeamsContext.Provider value={{ teams, setTeams }}>
+        <MuiThemeProvider theme={theme}>
+          <BrowserRouter>
+            {user && (
+              <>
+                <Navbar />
+                <Route path="/livewatch" component={Livewatch} />
+                <Route path="/table" component={Table} />
+                <Route exact path="/" component={Matches} />
+                {/* <Route component={Matches} /> */}
+              </>
+            )}
 
-          {!user && (
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Signup} />
-              <Route component={Login} />
-            </Switch>
-          )}
-        </BrowserRouter>
-      </MuiThemeProvider>
+            {!user && (
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Signup} />
+                <Route component={Login} />
+              </Switch>
+            )}
+          </BrowserRouter>
+        </MuiThemeProvider>
+      </TeamsContext.Provider>
     </UserContext.Provider>
   );
 }

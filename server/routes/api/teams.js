@@ -8,12 +8,12 @@ router.get("/", async (req, res) => {
   try {
     const { data } = await axios.get(teamsAPI);
 
-    const teams = data.teams.map(({ id, code, name, short_name }) => ({
-      id,
-      code,
-      name,
-      short_name,
-    }));
+    let teams = {};
+
+    data.teams.map(
+      ({ id, code, name, short_name }) =>
+        (teams[id] = { id, code, name, short_name })
+    );
 
     res.send(teams);
   } catch (error) {
