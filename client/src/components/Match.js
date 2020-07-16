@@ -2,9 +2,11 @@ import React from "react";
 
 import TeamInput from "./TeamInput";
 
+import "./Match.css";
+
 const Match = ({ awayTeam, homeTeam }) => {
   return (
-    <li>
+    <li className="matchTeamContainer">
       <TeamInput name={homeTeam} />
       <TeamInput name={awayTeam} />
     </li>
