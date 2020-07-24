@@ -31,7 +31,9 @@ function App() {
       };
 
       const getTeams = async () => {
-        const { data } = await axios.get("/api/teams");
+        const { data } = await axios.get("/api/teams", {
+          headers: { Authorization: "Bearer " + AuthStr },
+        });
 
         setTeams(data);
       };
