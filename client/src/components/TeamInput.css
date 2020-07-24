@@ -49,6 +49,6 @@
     border-radius: 50%;
 }
 
-.team button:hover {
+.team .scoreButton:hover {
     cursor: pointer;
 }

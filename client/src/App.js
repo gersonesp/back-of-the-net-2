@@ -45,7 +45,7 @@ function App() {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [user]);
 
   return (
     <UserContext.Provider
