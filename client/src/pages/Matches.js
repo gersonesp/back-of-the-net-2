@@ -10,8 +10,11 @@ const Matches = () => {
   const [gameweek, setGameweek] = useState(1);
 
   useEffect(() => {
+    const AuthStr = localStorage.token;
     const getGameweekFixtures = async () => {
-      const { data } = await axios.get("/api/fixtures/gameweek-matches");
+      const { data } = await axios.get("/api/fixtures/gameweek-matches", {
+        headers: { Authorization: "Bearer " + AuthStr },
+      });
       setFixtures(data);
       setGameweek(data[0].event);
 

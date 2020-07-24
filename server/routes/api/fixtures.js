@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
+const authenticate = require("../../middlewares/authenticate");
+
 const fixturesAPI = "https://fantasy.premierleague.com/api/fixtures/";
 const date = new Date();
 
-router.get("/gameweek-matches", async (req, res) => {
+router.get("/gameweek-matches", authenticate, async (req, res) => {
   try {
     const { data } = await axios.get(fixturesAPI);
 
@@ -49,8 +51,8 @@ router.get("/gameweek-matches", async (req, res) => {
 
     res.send(gameweekFixtures);
   } catch (err) {
-    console.error(err);
-    res.status(500).send(err);
+    console.error(err.response.data);
+    res.status(500).send(err.response.data);
   }
 });
 

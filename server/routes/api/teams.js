@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
+const authenticate = require("../../middlewares/authenticate");
+
 const teamsAPI = "https://fantasy.premierleague.com/api/bootstrap-static/";
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   try {
     const { data } = await axios.get(teamsAPI);
 
@@ -16,9 +18,9 @@ router.get("/", async (req, res) => {
     );
 
     res.send(teams);
-  } catch (error) {
-    console.error(err);
-    res.status(500).send(err);
+  } catch (err) {
+    console.error(err.response.data);
+    res.status(500).send(err.response.data);
   }
 });
 
