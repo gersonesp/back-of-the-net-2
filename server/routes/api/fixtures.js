@@ -15,7 +15,11 @@ router.get("/gameweek-matches", authenticate, async (req, res) => {
       kickoff_time >= date.toISOString() ? event : null
     );
 
-    const gameweek = [...new Set(filteredData)][0].event;
+    const gameweek = data[data.length - 1].event;
+
+    if (filteredData.length > 0) {
+      gameweek = [...new Set(filteredData)][0].event;
+    }
 
     const gameweekFixtures = [];
 
@@ -51,8 +55,8 @@ router.get("/gameweek-matches", authenticate, async (req, res) => {
 
     res.send(gameweekFixtures);
   } catch (err) {
-    console.error(err.response.data);
-    res.status(500).send(err.response.data);
+    console.error(err.response);
+    res.status(500).send(err.response);
   }
 });
 

@@ -4,7 +4,7 @@ import axios from "axios";
 import Card from "../components/Card";
 import "./Matches.css";
 
-const Matches = () => {
+const Matches = ({ teams }) => {
   const [fixtures, setFixtures] = useState([]);
   const [days, setDays] = useState([]);
   const [gameweek, setGameweek] = useState(1);
@@ -42,7 +42,7 @@ const Matches = () => {
       <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
       <div className="matchesList">
         {days.map((date) => (
-          <Card key={date} date={date} fixtures={fixtures} />
+          <Card key={date} date={date} fixtures={fixtures} teams={teams} />
         ))}
       </div>
     </div>

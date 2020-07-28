@@ -14,3 +14,18 @@
     color: #646464;
     border-bottom: 1px solid #e6e6e6;
 }
+
+.submitButton {
+    background: #3a66ff;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding: 10px 0 10px 0;
+}
+
+.submitButton:hover {
+    cursor: pointer;
+}

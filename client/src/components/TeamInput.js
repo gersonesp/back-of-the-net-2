@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import PredictionsContext from "../context/PredictionsContext";
 
 import "./TeamInput.css";
 
-const TeamInput = ({ name }) => {
+const TeamInput = ({ name, id, shortName }) => {
   const [score, setScore] = useState(0);
+  const { predictions, setPredictions } = useContext(PredictionsContext);
 
   const handleScoreChange = (event) => {
+    event.preventDefault();
     const name = event.target.name;
 
     if (name === "minus" && score === 0) return;
@@ -13,9 +16,11 @@ const TeamInput = ({ name }) => {
     switch (name) {
       case "minus":
         setScore(score - 1);
+        setPredictions({ ...predictions, [`${id}-${shortName}`]: score - 1 });
         break;
       case "add":
         setScore(score + 1);
+        setPredictions({ ...predictions, [`${id}-${shortName}`]: score + 1 });
         break;
       default:
         break;
