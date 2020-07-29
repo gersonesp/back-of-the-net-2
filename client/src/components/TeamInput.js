@@ -42,7 +42,11 @@ const TeamInput = ({ name, id, shortName, buttonDisabled }) => {
   return (
     <div className="team">
       <div className="labelImage">
-        <img className="teamImage" src="" alt="" />
+        <img
+          className="teamImage"
+          src={`https://back-of-the-net.s3.amazonaws.com/teams/${shortName}.svg`}
+          alt={shortName}
+        />
         <label>
           <div className="teamName">{name}</div>
         </label>
