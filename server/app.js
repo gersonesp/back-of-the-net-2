@@ -9,6 +9,7 @@ const passport = require("passport");
 const configurePassport = require("./config/passport");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/api/users");
+const predictionsRouter = require("./routes/api/predictions");
 const fixturesRouter = require("./routes/api/fixtures");
 const teamsRouter = require("./routes/api/teams");
 
@@ -33,6 +34,7 @@ configurePassport(passport);
 // Routes
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/predictions", predictionsRouter);
 app.use("/api/fixtures", fixturesRouter);
 app.use("/api/teams", teamsRouter);
 

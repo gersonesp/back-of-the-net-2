@@ -1,12 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import TeamsContext from "../context/TeamsContext";
 import PredictionsContext from "../context/PredictionsContext";
+import UserContext from "../context/UserContext";
+import axios from "axios";
 
 import Match from "./Match";
 
 import "./Card.css";
 
 const Card = ({ date, fixtures }) => {
+  const { user } = useContext(UserContext);
   const { teams } = useContext(TeamsContext);
   const [predictions, setPredictions] = useState({});
 
@@ -32,8 +35,17 @@ const Card = ({ date, fixtures }) => {
     submitPredictions();
   };
 
-  const submitPredictions = () => {
-    console.log(predictions);
+  const submitPredictions = async () => {
+    try {
+      const { data } = await axios.post("/api/predictions", {
+        userId: user.id,
+        gameweek: fixtures[0].event,
+        predictions,
+      });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
