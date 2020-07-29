@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
-import Card from "../components/Card";
+import MatchCard from "../components/MatchCard";
 import "./Matches.css";
 
 const Matches = ({ teams }) => {
@@ -51,7 +51,12 @@ const Matches = ({ teams }) => {
           <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
           <div className="matchesList">
             {days.map((date) => (
-              <Card key={date} date={date} fixtures={fixtures} teams={teams} />
+              <MatchCard
+                key={date}
+                date={date}
+                fixtures={fixtures}
+                teams={teams}
+              />
             ))}
           </div>
         </>

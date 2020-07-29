@@ -13,7 +13,7 @@ const style = {
   cursor: "default",
 };
 
-const Card = ({ date, fixtures }) => {
+const MatchCard = ({ date, fixtures }) => {
   const { user } = useContext(UserContext);
   const { teams } = useContext(TeamsContext);
   const [predictions, setPredictions] = useState({});
@@ -103,4 +103,4 @@ const Card = ({ date, fixtures }) => {
   );
 };
 
-export default Card;
+export default MatchCard;

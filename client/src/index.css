@@ -40,6 +40,20 @@ button {
   -moz-appearance: none;
 }
 
+@media (max-width: 700px) {
+
+  .matchesContainer,
+  .navbar ul,
+  .LiveWatch {
+    margin: 0 auto;
+    width: 85%;
+  }
+
+  /* .LiveWatch .playersPredictions .playerPrediction {
+    flex-grow: 1.155;
+  } */
+}
+
 @media (min-width: 700px) {
 
   .matchesContainer,
