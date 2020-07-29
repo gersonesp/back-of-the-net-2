@@ -1,11 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PredictionsContext from "../context/PredictionsContext";
 
 import "./TeamInput.css";
 
-const TeamInput = ({ name, id, shortName }) => {
+const style = {
+  border: "1px solid #bababa",
+  color: "#bababa",
+  cursor: "default",
+};
+
+const TeamInput = ({ name, id, shortName, buttonDisabled }) => {
   const [score, setScore] = useState(0);
   const { predictions, setPredictions } = useContext(PredictionsContext);
+
+  useEffect(() => {
+    if (predictions && predictions[`${id}-${shortName}`]) {
+      setScore(predictions[`${id}-${shortName}`]);
+    }
+  }, [predictions]);
 
   const handleScoreChange = (event) => {
     event.preventDefault();
@@ -42,6 +54,8 @@ const TeamInput = ({ name, id, shortName }) => {
             className="scoreButton"
             name="minus"
             onClick={handleScoreChange}
+            disabled={buttonDisabled}
+            style={buttonDisabled ? style : null}
           >
             -
           </button>
@@ -50,6 +64,8 @@ const TeamInput = ({ name, id, shortName }) => {
             className="scoreButton"
             name="add"
             onClick={handleScoreChange}
+            disabled={buttonDisabled}
+            style={buttonDisabled ? style : null}
           >
             +
           </button>

@@ -4,11 +4,28 @@ import TeamInput from "./TeamInput";
 
 import "./Match.css";
 
-const Match = ({ awayTeam, homeTeam, id, shortNameH, shortNameA }) => {
+const Match = ({
+  awayTeam,
+  homeTeam,
+  id,
+  shortNameH,
+  shortNameA,
+  buttonDisabled,
+}) => {
   return (
     <li className="matchTeamContainer">
-      <TeamInput name={homeTeam} id={id} shortName={shortNameH} />
-      <TeamInput name={awayTeam} id={id} shortName={shortNameA} />
+      <TeamInput
+        name={homeTeam}
+        id={id}
+        shortName={shortNameH}
+        buttonDisabled={buttonDisabled}
+      />
+      <TeamInput
+        name={awayTeam}
+        id={id}
+        shortName={shortNameA}
+        buttonDisabled={buttonDisabled}
+      />
     </li>
   );
 };

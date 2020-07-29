@@ -21,12 +21,33 @@ router.post("/", async (req, res) => {
       });
       await newPrediction.save();
 
-      res
-        .status(200)
-        .send({
-          predictions: `Succesfully submitted predictions for gameweek ${gameweek}`,
-        });
+      res.status(200).send({
+        predictions: `Succesfully submitted predictions for gameweek ${gameweek}`,
+      });
     }
+  } catch (err) {
+    console.error(err);
+    res.status(500).end();
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const predictions = await Prediction.find();
+
+    res.status(200).send(predictions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).end();
+  }
+});
+
+router.get("/:userId/:gameweek", async (req, res) => {
+  const { userId, gameweek } = req.params;
+  try {
+    const predictions = await Prediction.findOne({ userId, gameweek });
+
+    res.status(200).send(predictions);
   } catch (err) {
     console.error(err);
     res.status(500).end();

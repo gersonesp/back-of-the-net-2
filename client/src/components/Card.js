@@ -5,26 +5,45 @@ import UserContext from "../context/UserContext";
 import axios from "axios";
 
 import Match from "./Match";
-
 import "./Card.css";
+
+const style = {
+  border: "1px solid #bababa",
+  backgroundColor: "#bababa",
+  cursor: "default",
+};
 
 const Card = ({ date, fixtures }) => {
   const { user } = useContext(UserContext);
   const { teams } = useContext(TeamsContext);
   const [predictions, setPredictions] = useState({});
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
-    const populatePredictions = () => {
-      let initialPredictions = {};
+    const populatePredictions = async () => {
+      try {
+        const { data } = await axios.get(
+          `/api/predictions/${user.id}/${fixtures[0].event}`
+        );
 
-      fixtures.map(({ team_a, team_h, id }) => {
-        if (teams[team_a] && teams[team_h]) {
-          initialPredictions[`${id}-${teams[team_h].short_name}`] = 0;
-          initialPredictions[`${id}-${teams[team_a].short_name}`] = 0;
+        if (data) {
+          setPredictions(data.predictions);
+          setButtonDisabled(true);
+        } else {
+          let initialPredictions = {};
+
+          fixtures.map(({ team_a, team_h, id }) => {
+            if (teams[team_a] && teams[team_h]) {
+              initialPredictions[`${id}-${teams[team_h].short_name}`] = 0;
+              initialPredictions[`${id}-${teams[team_a].short_name}`] = 0;
+            }
+          });
+
+          setPredictions(initialPredictions);
         }
-      });
-
-      setPredictions(initialPredictions);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     populatePredictions();
@@ -37,12 +56,13 @@ const Card = ({ date, fixtures }) => {
 
   const submitPredictions = async () => {
     try {
-      const { data } = await axios.post("/api/predictions", {
+      await axios.post("/api/predictions", {
         userId: user.id,
         gameweek: fixtures[0].event,
         predictions,
       });
-      console.log(data);
+
+      setButtonDisabled(true);
     } catch (err) {
       console.log(err);
     }
@@ -65,11 +85,17 @@ const Card = ({ date, fixtures }) => {
                   shortNameH={teams[team_h].short_name}
                   shortNameA={teams[team_a].short_name}
                   id={id}
+                  buttonDisabled={buttonDisabled}
                 />
               )
           )}
         </ul>
-        <button type="submit" className="submitButton">
+        <button
+          type="submit"
+          className="submitButton"
+          disabled={buttonDisabled}
+          style={buttonDisabled ? style : null}
+        >
           Submit
         </button>
       </form>
