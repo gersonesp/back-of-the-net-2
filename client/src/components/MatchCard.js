@@ -22,8 +22,12 @@ const MatchCard = ({ date, fixtures }) => {
   useEffect(() => {
     const populatePredictions = async () => {
       try {
+        const AuthStr = localStorage.token;
         const { data } = await axios.get(
-          `/api/predictions/${user.id}/${fixtures[0].event}`
+          `/api/predictions/${user.id}/${fixtures[0].event}`,
+          {
+            headers: { Authorization: "Bearer " + AuthStr },
+          }
         );
 
         if (data) {

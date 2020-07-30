@@ -3,8 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const Prediction = require("../../models/Prediction");
+const authenticate = require("../../middlewares/authenticate");
 
-router.post("/", async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   const { userId, gameweek, predictions } = req.body;
   try {
     const prediction = await Prediction.findOne({ gameweek, userId });
@@ -31,7 +32,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   try {
     const predictions = await Prediction.find();
 
@@ -42,7 +43,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:userId/:gameweek", async (req, res) => {
+router.get("/:userId/:gameweek", authenticate, async (req, res) => {
   const { userId, gameweek } = req.params;
   try {
     const predictions = await Prediction.findOne({ userId, gameweek });

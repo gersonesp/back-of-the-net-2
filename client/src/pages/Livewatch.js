@@ -14,8 +14,11 @@ const Livewatch = () => {
   useEffect(() => {
     setLoading(true);
     try {
+      const AuthStr = localStorage.token;
       const getAllPredictions = async () => {
-        const { data } = await axios.get("/api/predictions");
+        const { data } = await axios.get("/api/predictions", {
+          headers: { Authorization: "Bearer " + AuthStr },
+        });
         setAllPredictions(data);
         setLoading(false);
       };
@@ -33,8 +36,8 @@ const Livewatch = () => {
         <CircularProgress className="loading" />
       ) : (
         <>
-          {allPredictions.map((prediction) => (
-            <LivewatchCard prediction={prediction} teams={teams} />
+          {allPredictions.map((prediction, i) => (
+            <LivewatchCard key={i} prediction={prediction} teams={teams} />
           ))}
         </>
       )}
