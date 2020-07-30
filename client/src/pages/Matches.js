@@ -5,7 +5,7 @@ import axios from "axios";
 import MatchCard from "../components/MatchCard";
 import "./Matches.css";
 
-const Matches = ({ teams }) => {
+const Matches = () => {
   const [fixtures, setFixtures] = useState([]);
   const [days, setDays] = useState([]);
   const [gameweek, setGameweek] = useState(1);
@@ -43,7 +43,6 @@ const Matches = ({ teams }) => {
 
   return (
     <div className="matchesContainer">
-      <h1>Matches</h1>
       {loading ? (
         <CircularProgress className="loading" />
       ) : (
@@ -51,12 +50,7 @@ const Matches = ({ teams }) => {
           <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
           <div className="matchesList">
             {days.map((date) => (
-              <MatchCard
-                key={date}
-                date={date}
-                fixtures={fixtures}
-                teams={teams}
-              />
+              <MatchCard key={date} date={date} fixtures={fixtures} />
             ))}
           </div>
         </>

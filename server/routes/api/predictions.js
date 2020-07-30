@@ -7,7 +7,7 @@ const Prediction = require("../../models/Prediction");
 router.post("/", async (req, res) => {
   const { userId, gameweek, predictions } = req.body;
   try {
-    const prediction = await Prediction.findOne({ gameweek });
+    const prediction = await Prediction.findOne({ gameweek, userId });
 
     if (prediction) {
       res.status(400).send({
