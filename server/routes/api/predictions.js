@@ -51,10 +51,7 @@ router.get("/:gameweek", authenticate, async (req, res) => {
             if (prediction.userId === predictionsObject.userId) {
               allPredictions[matchNumber][j] = {
                 ...prediction,
-                [teamName]: keys.substr(
-                  keys.indexOf("-") + 1,
-                  keys.indexOf("-")
-                ),
+                [teamName]: keys.split("-")[2],
                 [`${teamName}Score`]: predictionsObject.predictions[keys],
               };
             }
@@ -63,7 +60,7 @@ router.get("/:gameweek", authenticate, async (req, res) => {
           allPredictions[matchNumber] = [
             {
               userId: predictionsObject.userId,
-              [teamName]: keys.substr(keys.indexOf("-") + 1, keys.indexOf("-")),
+              [teamName]: keys.split("-")[2],
               [`${teamName}Score`]: predictionsObject.predictions[keys],
             },
           ];

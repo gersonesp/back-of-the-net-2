@@ -12,6 +12,8 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
   const [homeTeamScore, setHomeTeamScore] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
   const [awayTeamScore, setAwayTeamScore] = useState("");
+  const [kickoffTime, setKickoffTime] = useState("");
+  const [minutes, setMinutes] = useState("");
 
   useEffect(() => {
     const predictions = allPredictions[gameId][0];
@@ -20,27 +22,32 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
     setHomeTeamScore(predictions.homeTeamScore);
     setAwayTeam(predictions.awayTeam);
     setAwayTeamScore(predictions.awayTeamScore);
+    setKickoffTime(allMatches[gameId].kickoff_time);
+    setMinutes(allMatches[gameId].minutes);
   }, [teams]);
 
   return (
-    <li className="livewatchCard">
-      <div className="kickoffLive">
-        <div className="time">{allMatches[gameId].kickoff_time}</div>
-        <span className="live">{allMatches[gameId].minutes}</span>
-      </div>
-      <LivewatchCardTeamHeading
-        gameId={gameId}
-        teams={teams}
-        homeTeam={homeTeam}
-        awayTeam={awayTeam}
-        gameMatch={allMatches[gameId]}
-      />
-      <LivewatchCardUserPredictions
-        userName={allUsers[userId]}
-        homeTeamScore={homeTeamScore}
-        awayTeamScore={awayTeamScore}
-      />
-    </li>
+    homeTeam &&
+    awayTeam && (
+      <li className="livewatchCard">
+        <div className="kickoffLive">
+          <div className="time">{kickoffTime}</div>
+          <span className="live">{minutes}</span>
+        </div>
+        <LivewatchCardTeamHeading
+          gameId={gameId}
+          teams={teams}
+          homeTeam={teams[homeTeam].name}
+          awayTeam={teams[awayTeam].name}
+          gameMatch={allMatches[gameId]}
+        />
+        <LivewatchCardUserPredictions
+          userName={allUsers[userId]}
+          homeTeamScore={homeTeamScore}
+          awayTeamScore={awayTeamScore}
+        />
+      </li>
+    )
   );
 };
 
