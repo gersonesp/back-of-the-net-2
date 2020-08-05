@@ -5,7 +5,7 @@ import LivewatchCardUserPredictions from "./LivewatchCardUserPredictions";
 import LivewatchCardTeamHeading from "./LivewatchCardTeamHeading";
 import "./LivewatchCard.css";
 
-const LivewatchCard = ({ gameId, allPredictions }) => {
+const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
   const { teams } = useContext(TeamsContext);
   const [userId, setUserId] = useState("");
   const [homeTeam, setHomeTeam] = useState("");
@@ -25,17 +25,18 @@ const LivewatchCard = ({ gameId, allPredictions }) => {
   return (
     <li className="livewatchCard">
       <div className="kickoffLive">
-        <div className="time">07/30/20</div>
-        <span className="live">90</span>
+        <div className="time">{allMatches[gameId].kickoff_time}</div>
+        <span className="live">{allMatches[gameId].minutes}</span>
       </div>
       <LivewatchCardTeamHeading
         gameId={gameId}
         teams={teams}
         homeTeam={homeTeam}
         awayTeam={awayTeam}
+        gameMatch={allMatches[gameId]}
       />
       <LivewatchCardUserPredictions
-        userId={userId}
+        userName={allUsers[userId]}
         homeTeamScore={homeTeamScore}
         awayTeamScore={awayTeamScore}
       />

@@ -7,6 +7,8 @@ import "./Livewatch.css";
 
 const Livewatch = () => {
   const [allPredictions, setAllPredictions] = useState({});
+  const [allUsers, setAllUsers] = useState({});
+  const [allMatches, setAllMatches] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -28,7 +30,25 @@ const Livewatch = () => {
       setLoading(false);
     };
 
+    const getAllUsers = async () => {
+      const { data } = await axios.get("/api/users", {
+        headers: { Authorization: "Bearer " + AuthStr },
+      });
+
+      setAllUsers(data);
+    };
+
+    const getAllMatches = async () => {
+      const { data } = await axios.get("/api/fixtures/allMatches", {
+        headers: { Authorization: "Bearer " + AuthStr },
+      });
+
+      setAllMatches(data);
+    };
+
     getGameweek();
+    getAllUsers();
+    getAllMatches();
   }, []);
 
   return (
@@ -43,6 +63,8 @@ const Livewatch = () => {
               key={gameId}
               gameId={gameId}
               allPredictions={allPredictions}
+              allUsers={allUsers}
+              allMatches={allMatches}
             />
           ))}
         </ul>

@@ -2,7 +2,7 @@ import React from "react";
 
 import "./LivewatchCardTeamHeading.css";
 
-const LiveWatchCardTeamHeading = ({ homeTeam, awayTeam }) => {
+const LiveWatchCardTeamHeading = ({ homeTeam, awayTeam, gameMatch }) => {
   return (
     <div className="liveGame">
       <div className="team1">
@@ -14,7 +14,7 @@ const LiveWatchCardTeamHeading = ({ homeTeam, awayTeam }) => {
         />
       </div>
       <div className="liveScore">
-        {0} - {0}
+        {gameMatch.team_h_score} - {gameMatch.team_a_score}
       </div>
 
       <div className="team2">

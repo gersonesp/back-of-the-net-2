@@ -60,4 +60,45 @@ router.get("/gameweek-matches", authenticate, async (req, res) => {
   }
 });
 
+router.get("/allMatches", authenticate, async (req, res) => {
+  try {
+    const { data } = await axios.get(fixturesAPI);
+
+    const gameweekFixtures = {};
+
+    data.map(
+      ({
+        event,
+        finished,
+        id,
+        kickoff_time,
+        minutes,
+        started,
+        team_a,
+        team_a_score,
+        team_h,
+        team_h_score,
+      }) => {
+        gameweekFixtures[id] = {
+          event,
+          finished,
+          id,
+          kickoff_time,
+          minutes,
+          started,
+          team_a,
+          team_a_score,
+          team_h,
+          team_h_score,
+        };
+      }
+    );
+
+    res.send(gameweekFixtures);
+  } catch (err) {
+    console.error(err.response);
+    res.status(500).send(err.response);
+  }
+});
+
 module.exports = router;

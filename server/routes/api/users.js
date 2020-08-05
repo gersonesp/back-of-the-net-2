@@ -108,4 +108,18 @@ router.get("/me", authenticate, (req, res) => {
   res.json({ id, email, name });
 });
 
+router.get("/", authenticate, async (req, res) => {
+  try {
+    const allUsers = await User.find();
+
+    let filteredUsers = {};
+
+    allUsers.map((user) => (filteredUsers[user.id] = user.name));
+
+    res.status(200).send(filteredUsers);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
