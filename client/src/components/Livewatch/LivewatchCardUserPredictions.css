@@ -1,0 +1,15 @@
+.playersPredictions .player {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+}
+
+.playersPredictions .playerName {
+    padding-left: 2rem;
+    color: #646464;
+}
+
+.playersPredictions .playersScorePrediction {
+    justify-self: center;
+    color: #646464;
+    padding-bottom: 1rem;
+}

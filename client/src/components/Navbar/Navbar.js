@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import UserContext from "../context/UserContext";
+import UserContext from "../../context/UserContext";
 
-import NavItem from "../components/NavItem";
+import NavItem from "./NavItem";
 import "./Navbar.css";
 
 const Navbar = () => {

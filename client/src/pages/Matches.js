@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
-import MatchCard from "../components/MatchCard";
+import MatchCard from "../components/Matches/MatchCard";
 import "./Matches.css";
 
 const Matches = () => {

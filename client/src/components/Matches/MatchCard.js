@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import TeamsContext from "../context/TeamsContext";
-import PredictionsContext from "../context/PredictionsContext";
-import UserContext from "../context/UserContext";
+import TeamsContext from "../../context/TeamsContext";
+import PredictionsContext from "../../context/PredictionsContext";
+import UserContext from "../../context/UserContext";
 import axios from "axios";
 
 import Match from "./Match";
-import "./Card.css";
+import "./MatchCard.css";
 
 const style = {
   border: "1px solid #bababa",
@@ -38,8 +38,12 @@ const MatchCard = ({ date, fixtures }) => {
 
           fixtures.map(({ team_a, team_h, id }) => {
             if (teams[team_a] && teams[team_h]) {
-              initialPredictions[`${id}-${teams[team_h].short_name}`] = 0;
-              initialPredictions[`${id}-${teams[team_a].short_name}`] = 0;
+              initialPredictions[
+                `${id}-${teams[team_h].short_name}-${team_h}-h`
+              ] = 0;
+              initialPredictions[
+                `${id}-${teams[team_a].short_name}-${team_a}-a`
+              ] = 0;
             }
           });
 
@@ -60,11 +64,18 @@ const MatchCard = ({ date, fixtures }) => {
 
   const submitPredictions = async () => {
     try {
-      await axios.post("/api/predictions", {
-        userId: user.id,
-        gameweek: fixtures[0].event,
-        predictions,
-      });
+      const AuthStr = localStorage.token;
+      await axios.post(
+        "/api/predictions",
+        {
+          userId: user.id,
+          gameweek: fixtures[0].event,
+          predictions,
+        },
+        {
+          headers: { Authorization: "Bearer " + AuthStr },
+        }
+      );
 
       setButtonDisabled(true);
     } catch (err) {
@@ -75,8 +86,8 @@ const MatchCard = ({ date, fixtures }) => {
   return (
     <PredictionsContext.Provider value={{ predictions, setPredictions }}>
       <form onSubmit={handleSubmit}>
-        <ul className="card">
-          <div className="cardDate">{date}</div>
+        <ul className="matchCard">
+          <div className="matchCardDate">{date}</div>
           {fixtures.map(
             ({ kickoff_time, id, team_a, team_h }) =>
               date === kickoff_time.slice(0, kickoff_time.indexOf("T")) &&
@@ -88,6 +99,8 @@ const MatchCard = ({ date, fixtures }) => {
                   homeTeam={teams[team_h].name}
                   shortNameH={teams[team_h].short_name}
                   shortNameA={teams[team_a].short_name}
+                  awayTeamId={team_a}
+                  homeTeamId={team_h}
                   id={id}
                   buttonDisabled={buttonDisabled}
                 />

@@ -1,4 +1,4 @@
-.card {
+.matchCard {
     display: flex;
     flex-direction: column;
     align-content: space-between;
@@ -7,7 +7,7 @@
     border-radius: 4px;
 }
 
-.cardDate {
+.matchCardDate {
     padding-top: 0.5rem;
     padding-left: 1rem;
     padding-bottom: 0.5rem;

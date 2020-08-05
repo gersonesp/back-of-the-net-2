@@ -11,6 +11,8 @@ const Match = ({
   shortNameH,
   shortNameA,
   buttonDisabled,
+  awayTeamId,
+  homeTeamId,
 }) => {
   return (
     <li className="matchTeamContainer">
@@ -19,12 +21,16 @@ const Match = ({
         id={id}
         shortName={shortNameH}
         buttonDisabled={buttonDisabled}
+        teamId={homeTeamId}
+        teamBase="h"
       />
       <TeamInput
         name={awayTeam}
         id={id}
         shortName={shortNameA}
         buttonDisabled={buttonDisabled}
+        teamId={awayTeamId}
+        teamBase="a"
       />
     </li>
   );

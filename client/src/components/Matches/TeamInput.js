@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import PredictionsContext from "../context/PredictionsContext";
+import PredictionsContext from "../../context/PredictionsContext";
 
 import "./TeamInput.css";
 
@@ -9,13 +9,23 @@ const style = {
   cursor: "default",
 };
 
-const TeamInput = ({ name, id, shortName, buttonDisabled }) => {
+const TeamInput = ({
+  name,
+  id,
+  shortName,
+  buttonDisabled,
+  teamId,
+  teamBase,
+}) => {
   const [score, setScore] = useState(0);
   const { predictions, setPredictions } = useContext(PredictionsContext);
 
   useEffect(() => {
-    if (predictions && predictions[`${id}-${shortName}`]) {
-      setScore(predictions[`${id}-${shortName}`]);
+    if (
+      predictions &&
+      predictions[`${id}-${shortName}-${teamId}-${teamBase}`]
+    ) {
+      setScore(predictions[`${id}-${shortName}-${teamId}-${teamBase}`]);
     }
   }, [predictions]);
 
@@ -28,11 +38,17 @@ const TeamInput = ({ name, id, shortName, buttonDisabled }) => {
     switch (name) {
       case "minus":
         setScore(score - 1);
-        setPredictions({ ...predictions, [`${id}-${shortName}`]: score - 1 });
+        setPredictions({
+          ...predictions,
+          [`${id}-${shortName}-${teamId}-${teamBase}`]: score - 1,
+        });
         break;
       case "add":
         setScore(score + 1);
-        setPredictions({ ...predictions, [`${id}-${shortName}`]: score + 1 });
+        setPredictions({
+          ...predictions,
+          [`${id}-${shortName}-${teamId}-${teamBase}`]: score + 1,
+        });
         break;
       default:
         break;

@@ -32,11 +32,46 @@ router.post("/", authenticate, async (req, res) => {
   }
 });
 
-router.get("/", authenticate, async (req, res) => {
+router.get("/:gameweek", authenticate, async (req, res) => {
+  const { gameweek } = req.params;
   try {
-    const predictions = await Prediction.find();
+    let allPredictions = {};
+    const predictions = await Prediction.find({ gameweek });
 
-    res.status(200).send(predictions);
+    predictions.map((predictionsObject) => {
+      for (keys in predictionsObject.predictions) {
+        const matchNumber = keys.substr(0, keys.indexOf("-"));
+        const teamName =
+          keys[keys.length - 1] === "h" ? "homeTeam" : "awayTeam";
+
+        if (allPredictions.hasOwnProperty(matchNumber)) {
+          for (let j = 0; j < allPredictions[matchNumber].length; j++) {
+            let prediction = allPredictions[matchNumber][j];
+
+            if (prediction.userId === predictionsObject.userId) {
+              allPredictions[matchNumber][j] = {
+                ...prediction,
+                [teamName]: keys.substr(
+                  keys.indexOf("-") + 1,
+                  keys.indexOf("-")
+                ),
+                [`${teamName}Score`]: predictionsObject.predictions[keys],
+              };
+            }
+          }
+        } else {
+          allPredictions[matchNumber] = [
+            {
+              userId: predictionsObject.userId,
+              [teamName]: keys.substr(keys.indexOf("-") + 1, keys.indexOf("-")),
+              [`${teamName}Score`]: predictionsObject.predictions[keys],
+            },
+          ];
+        }
+      }
+    });
+
+    res.status(200).send(allPredictions);
   } catch (err) {
     console.error(err);
     res.status(500).end();
