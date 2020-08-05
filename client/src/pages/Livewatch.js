@@ -57,7 +57,7 @@ const Livewatch = () => {
       {loading ? (
         <CircularProgress className="loading" />
       ) : (
-        <ul>
+        <ul className="livewatchList">
           {Object.keys(allPredictions).map((gameId) => (
             <LivewatchCard
               key={gameId}

@@ -3,6 +3,8 @@ import TeamsContext from "../../context/TeamsContext";
 
 import LivewatchCardUserPredictions from "./LivewatchCardUserPredictions";
 import LivewatchCardTeamHeading from "./LivewatchCardTeamHeading";
+
+import { convertTime } from "../../utils/convertTime";
 import "./LivewatchCard.css";
 
 const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
@@ -31,7 +33,7 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
     awayTeam && (
       <li className="livewatchCard">
         <div className="kickoffLive">
-          <div className="time">{kickoffTime}</div>
+          <div className="time">{convertTime(kickoffTime)}</div>
           <span className="live">{minutes}</span>
         </div>
         <LivewatchCardTeamHeading

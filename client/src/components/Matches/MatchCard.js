@@ -5,6 +5,7 @@ import UserContext from "../../context/UserContext";
 import axios from "axios";
 
 import Match from "./Match";
+import { convertTime } from "../../utils/convertTime";
 import "./MatchCard.css";
 
 const style = {
@@ -87,7 +88,7 @@ const MatchCard = ({ date, fixtures }) => {
     <PredictionsContext.Provider value={{ predictions, setPredictions }}>
       <form onSubmit={handleSubmit}>
         <ul className="matchCard">
-          <div className="matchCardDate">{date}</div>
+          <div className="matchCardDate">{convertTime(date)}</div>
           {fixtures.map(
             ({ kickoff_time, id, team_a, team_h }) =>
               date === kickoff_time.slice(0, kickoff_time.indexOf("T")) &&
