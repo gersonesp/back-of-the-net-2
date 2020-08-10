@@ -47,40 +47,50 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit} className="loginForm">
-      <div className="inputContainer">
-        <h1>Back of The Net</h1>
-        <div className="labelInput">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
+      <div className="blankCard">
+        <div className="headerContainer">
+          <h5>Back of The Net</h5>
+          <h1>Welcome back</h1>
         </div>
+        <div className="inputContainer">
+          <div className="labelInput">
+            <label>Email</label>
+            <input
+              className={errors.email ? "inputError" : null}
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
 
-        {errors.email ? <div className="authError">{errors.email}</div> : null}
+            {errors.email ? (
+              <div className="authError">{errors.email}</div>
+            ) : null}
+          </div>
 
-        <div className="labelInput">
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="labelInput">
+            <label>Password</label>
+            <input
+              className={errors.password ? "inputError" : null}
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+            {errors.password ? (
+              <div className="authError">{errors.password}</div>
+            ) : null}
+          </div>
 
-        {errors.password ? (
-          <div className="authError">{errors.password}</div>
-        ) : null}
+          <div className="buttonContainer">
+            <button type="submit">Log In</button>
+          </div>
 
-        <div className="buttonContainer">
-          <button type="submit">Log In</button>
-        </div>
-
-        <div className="altForm">
-          New member? <Link to="/register"> Sign Up here.</Link>
+          <div className="altForm">
+            <pre>
+              New member? <Link to="/register">Sign Up here.</Link>
+            </pre>
+          </div>
         </div>
       </div>
     </form>

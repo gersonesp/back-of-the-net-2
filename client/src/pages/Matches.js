@@ -41,22 +41,30 @@ const Matches = () => {
     getGameweekFixtures();
   }, []);
 
-  return (
-    <div className="matchesContainer">
-      {loading ? (
-        <CircularProgress className="loading" />
-      ) : (
-        <>
-          <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
-          <div className="matchesList">
-            {days.map((date) => (
-              <MatchCard key={date} date={date} fixtures={fixtures} />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
+  if (fixtures.length === 0) {
+    return (
+      <p className="matchesContainer">
+        There are no current fixtures, check back soon!
+      </p>
+    );
+  } else {
+    return (
+      <div className="matchesContainer">
+        {loading ? (
+          <CircularProgress className="loading" />
+        ) : (
+          <>
+            <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
+            <div className="matchesList">
+              {days.map((date) => (
+                <MatchCard key={date} date={date} fixtures={fixtures} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Matches;

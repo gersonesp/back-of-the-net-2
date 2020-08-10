@@ -55,61 +55,77 @@ const Signup = () => {
 
   return (
     <form onSubmit={handleSubmit} className="loginForm">
-      <div className="inputContainer">
-        <h1>Back of The Net</h1>
-        <div className="labelInput">
-          <label>Name</label>
-          <input type="name" name="name" value={name} onChange={handleChange} />
+      <div className="blankCard">
+        <div className="headerContainer">
+          <h5>Back of The Net</h5>
+          <h1>Create An Account</h1>
         </div>
+        <div className="inputContainer">
+          <div className="labelInput">
+            <label>Name</label>
+            <input
+              className={errors.name ? "inputError" : null}
+              type="name"
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+            {errors.name ? (
+              <div className="authError">{errors.name}</div>
+            ) : null}
+          </div>
 
-        {errors.name ? <div className="authError">{errors.name}</div> : null}
+          <div className="labelInput">
+            <label>Email</label>
+            <input
+              className={errors.email ? "inputError" : null}
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+            {errors.email ? (
+              <div className="authError">{errors.email}</div>
+            ) : null}
+          </div>
 
-        <div className="labelInput">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="labelInput">
+            <label>Password</label>
+            <input
+              className={errors.password ? "inputError" : null}
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+            {errors.password ? (
+              <div className="authError">{errors.password}</div>
+            ) : null}
+          </div>
 
-        {errors.email ? <div className="authError">{errors.email}</div> : null}
+          <div className="labelInput">
+            <label>Confirm Password</label>
+            <input
+              className={errors.password2 ? "inputError" : null}
+              type="password"
+              name="password2"
+              value={password2}
+              onChange={handleChange}
+            />
+            {errors.password2 ? (
+              <div className="authError">{errors.password2}</div>
+            ) : null}
+          </div>
 
-        <div className="labelInput">
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="buttonContainer">
+            <button type="submit">Signup</button>
+          </div>
 
-        {errors.password ? (
-          <div className="authError">{errors.password}</div>
-        ) : null}
-
-        <div className="labelInput">
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            name="password2"
-            value={password2}
-            onChange={handleChange}
-          />
-        </div>
-
-        {errors.password2 ? (
-          <div className="authError">{errors.password2}</div>
-        ) : null}
-
-        <div className="buttonContainer">
-          <button type="submit">Signup</button>
-        </div>
-
-        <div className="altForm">
-          Already a member? <Link to="/login">Login here.</Link>
+          <div className="altForm">
+            <pre>
+              Already a member? <Link to="/login">Login here.</Link>
+            </pre>
+          </div>
         </div>
       </div>
     </form>
