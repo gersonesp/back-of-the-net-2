@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const axios = require("axios");
+// const axios = require("axios");
+const fetch = require("node-fetch");
 
 const authenticate = require("../../middlewares/authenticate");
 
@@ -8,19 +9,22 @@ const teamsAPI = "https://fantasy.premierleague.com/api/bootstrap-static/";
 
 router.get("/", authenticate, async (req, res) => {
   try {
-    const { data } = await axios.get(teamsAPI);
+    // const { data } = await axios.get(teamsAPI);
+    fetch(teamsAPI)
+      .then((response) => response.json())
+      .then((data) => {
+        let teams = {};
 
-    let teams = {};
+        data.teams.map(
+          ({ id, code, name, short_name }) =>
+            (teams[id] = { id, code, name, short_name })
+        );
 
-    data.teams.map(
-      ({ id, code, name, short_name }) =>
-        (teams[id] = { id, code, name, short_name })
-    );
-
-    res.send(teams);
+        res.send(teams);
+      });
   } catch (err) {
-    console.error(err.response.data);
-    res.status(500).send(err.response.data);
+    console.error(err);
+    res.status(500).send(err);
   }
 });
 
