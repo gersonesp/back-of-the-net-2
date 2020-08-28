@@ -28,6 +28,8 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
     setMinutes(allMatches[gameId].minutes);
   }, [teams]);
 
+  console.log(allPredictions[gameId][0]);
+
   return (
     homeTeam &&
     awayTeam && (

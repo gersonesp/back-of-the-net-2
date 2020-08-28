@@ -2,22 +2,23 @@
   --main-color: #71b350;
   --bg-gradiant: linear-gradient(45deg, rgba(17, 153, 142, 1) 35%, rgba(56, 239, 125, 1) 100%);
   --teal: #119988;
-  --light-green: #e3fdd6;
+  --light-green: #e2f7ed;
   --dark-green: #227d51;
   --warning: #e31837;
   --purple: #8879f2;
   --blue: #3a66ff;
+  --dark-blue: #395bd8;
   --primary-gray: #404040;
 }
 
 html * {
   font-family: "Roboto", sans-serif;
-  color: var(--primary-gray);
 }
 
 body {
   margin: 0;
   padding: 0;
+  color: var(--primary-gray);
 }
 
 h1,

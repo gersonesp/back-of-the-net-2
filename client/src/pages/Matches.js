@@ -1,51 +1,97 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
+import UserContext from "../context/UserContext";
 import MatchCard from "../components/Matches/MatchCard";
 import "./Matches.css";
 
+const style = {
+  border: "1px solid #bababa",
+  backgroundColor: "#bababa",
+  cursor: "not-allowed",
+};
+
 const Matches = () => {
+  const { user } = useContext(UserContext);
   const [fixtures, setFixtures] = useState([]);
   const [days, setDays] = useState([]);
   const [gameweek, setGameweek] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [predictions, setPredictions] = useState({});
 
   useEffect(() => {
     setLoading(true);
     const AuthStr = localStorage.token;
-    const getGameweekFixtures = async () => {
-      const { data } = await axios.get("/api/fixtures/gameweek-matches", {
-        headers: { Authorization: "Bearer " + AuthStr },
-      });
-      setFixtures(data);
-      setGameweek(data[0].event);
 
-      const seen = {};
-      const filteredDays = [];
+    try {
+      const getGameweekFixtures = async () => {
+        const { data } = await axios.get("/api/fixtures/gameweek-matches", {
+          headers: { Authorization: "Bearer " + AuthStr },
+        });
+        setFixtures(data);
+        setGameweek(data[0].event);
 
-      // eslint-disable-next-line
-      data.map(({ kickoff_time }) => {
-        if (
-          !seen.hasOwnProperty(kickoff_time.slice(0, kickoff_time.indexOf("T")))
-        ) {
-          filteredDays.push(kickoff_time.slice(0, kickoff_time.indexOf("T")));
-          seen[kickoff_time.slice(0, kickoff_time.indexOf("T"))] = true;
-        }
-      });
-      setDays(filteredDays);
+        const seen = {};
+        const filteredDays = [];
 
-      setLoading(false);
-    };
+        // eslint-disable-next-line
+        data.map(({ kickoff_time }) => {
+          if (
+            !seen.hasOwnProperty(
+              kickoff_time.slice(0, kickoff_time.indexOf("T"))
+            )
+          ) {
+            filteredDays.push(kickoff_time.slice(0, kickoff_time.indexOf("T")));
+            seen[kickoff_time.slice(0, kickoff_time.indexOf("T"))] = true;
+          }
+        });
+        setDays(filteredDays);
 
-    getGameweekFixtures();
+        setLoading(false);
+      };
+
+      getGameweekFixtures();
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    submitPredictions();
+  };
+
+  const submitPredictions = async () => {
+    try {
+      const AuthStr = localStorage.token;
+      await axios.post(
+        "/api/predictions",
+        {
+          userId: user.id,
+          gameweek: fixtures[0].event,
+          predictions,
+        },
+        {
+          headers: { Authorization: "Bearer " + AuthStr },
+        }
+      );
+
+      setButtonDisabled(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (fixtures.length === 0) {
     return (
-      <p className="matchesContainer">
-        There are no current fixtures, check back soon!
-      </p>
+      <div className="matchesContainer">
+        <div className="pageHeader">
+          <p>There are no current fixtures, check back soon!</p>
+        </div>
+      </div>
     );
   } else {
     return (
@@ -54,11 +100,38 @@ const Matches = () => {
           <CircularProgress className="loading" />
         ) : (
           <>
-            <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
+            <div className="pageHeader">
+              <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
+              {buttonDisabled ? (
+                <div className="predictionsMessage">
+                  <div>You have submitted this gameweek's predictions.</div>
+                  <Link to="/livewatch">Go to Live Watch</Link>
+                </div>
+              ) : null}
+            </div>
+
             <div className="matchesList">
-              {days.map((date) => (
-                <MatchCard key={date} date={date} fixtures={fixtures} />
-              ))}
+              <form onSubmit={handleSubmit}>
+                {days.map((date) => (
+                  <MatchCard
+                    key={date}
+                    date={date}
+                    fixtures={fixtures}
+                    setButtonDisabled={setButtonDisabled}
+                    buttonDisabled={buttonDisabled}
+                    predictions={predictions}
+                    setPredictions={setPredictions}
+                  />
+                ))}
+                <button
+                  type="submit"
+                  className="submitButton"
+                  disabled={buttonDisabled}
+                  style={buttonDisabled ? style : null}
+                >
+                  Submit
+                </button>
+              </form>
             </div>
           </>
         )}

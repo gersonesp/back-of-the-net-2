@@ -4,12 +4,22 @@
     align-items: center;
 }
 
-.matchesGameweek {
-    width: 100%;
-    text-align: center;
-    margin: 1rem 0 1rem 0;
-}
-
 .matchesList {
     width: 100%;
+}
+
+.predictionsMessage {
+    padding: 1rem;
+    background-color: var(--light-green);
+    border-radius: 4px;
+}
+
+.predictionsMessage a {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+.predictionsMessage a:hover {
+    text-decoration: underline;
+    color: var(--dark-blue);
 }

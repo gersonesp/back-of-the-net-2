@@ -13,7 +13,7 @@ const Livewatch = () => {
 
   useEffect(() => {
     const AuthStr = localStorage.token;
-
+    setLoading(true);
     const getGameweek = async () => {
       const { data } = await axios.get("/api/fixtures/gameweek-matches", {
         headers: { Authorization: "Bearer " + AuthStr },
@@ -51,26 +51,39 @@ const Livewatch = () => {
     getAllMatches();
   }, []);
 
-  return (
-    <div className="livewatchContainer">
-      <h1>Live Scores</h1>
-      {loading ? (
-        <CircularProgress className="loading" />
-      ) : (
-        <ul className="livewatchList">
-          {Object.keys(allPredictions).map((gameId) => (
-            <LivewatchCard
-              key={gameId}
-              gameId={gameId}
-              allPredictions={allPredictions}
-              allUsers={allUsers}
-              allMatches={allMatches}
-            />
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+  if (Object.keys(allPredictions).length === 0) {
+    return (
+      <div className="livewatchContainer">
+        <div className="pageHeader">
+          <p>
+            No predictions yet, come back after the first game of the week
+            starts!
+          </p>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="livewatchContainer">
+        <h1>Live Scores</h1>
+        {loading ? (
+          <CircularProgress className="loading" />
+        ) : (
+          <ul className="livewatchList">
+            {Object.keys(allPredictions).map((gameId) => (
+              <LivewatchCard
+                key={gameId}
+                gameId={gameId}
+                allPredictions={allPredictions}
+                allUsers={allUsers}
+                allMatches={allMatches}
+              />
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Livewatch;

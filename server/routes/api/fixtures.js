@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// const axios = require("axios");
 const fetch = require("node-fetch");
 
 const authenticate = require("../../middlewares/authenticate");
@@ -65,7 +64,6 @@ router.get("/gameweek-matches", authenticate, (req, res) => {
 
 router.get("/allMatches", authenticate, async (req, res) => {
   try {
-    // const { data } = await axios.get(fixturesAPI);
     fetch(fixturesAPI)
       .then((response) => response.json())
       .then((data) => {
