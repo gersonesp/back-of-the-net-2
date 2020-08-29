@@ -2,22 +2,18 @@ import React from "react";
 
 import "./LivewatchCardUserPredictions.css";
 
-const LivewatchCardUserPredictions = ({
-  userName,
-  homeTeamScore,
-  awayTeamScore,
-}) => {
-  return (
-    <div className="playersPredictions">
+const LivewatchCardUserPredictions = ({ allUsers, allPredictions }) => {
+  return allPredictions.map((prediction) => (
+    <div key={prediction.userId} className="playersPredictions">
       <div className="player">
-        <div className="playerName">{userName}</div>
+        <div className="playerName">{allUsers[prediction.userId]}</div>
         <div className="playersScorePrediction">
-          {homeTeamScore} - {awayTeamScore}
+          {prediction.homeTeamScore} - {prediction.awayTeamScore}
         </div>
         <div />
       </div>
     </div>
-  );
+  ));
 };
 
 export default LivewatchCardUserPredictions;

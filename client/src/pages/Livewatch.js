@@ -74,7 +74,7 @@ const Livewatch = () => {
               <LivewatchCard
                 key={gameId}
                 gameId={gameId}
-                allPredictions={allPredictions}
+                allPredictions={allPredictions[gameId]}
                 allUsers={allUsers}
                 allMatches={allMatches}
               />

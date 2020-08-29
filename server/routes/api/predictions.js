@@ -43,17 +43,25 @@ router.get("/:gameweek", authenticate, async (req, res) => {
         const matchNumber = keys.substr(0, keys.indexOf("-"));
         const teamName =
           keys[keys.length - 1] === "h" ? "homeTeam" : "awayTeam";
-
         if (allPredictions.hasOwnProperty(matchNumber)) {
+          let added = false;
           for (let j = 0; j < allPredictions[matchNumber].length; j++) {
             let prediction = allPredictions[matchNumber][j];
-
             if (prediction.userId === predictionsObject.userId) {
               allPredictions[matchNumber][j] = {
                 ...prediction,
                 [teamName]: keys.split("-")[2],
                 [`${teamName}Score`]: predictionsObject.predictions[keys],
               };
+              added = true;
+              continue;
+            } else if (j === allPredictions[matchNumber].length - 1 && !added) {
+              allPredictions[matchNumber].push({
+                userId: predictionsObject.userId,
+                [teamName]: keys.split("-")[2],
+                [`${teamName}Score`]: predictionsObject.predictions[keys],
+              });
+              added = false;
             }
           }
         } else {

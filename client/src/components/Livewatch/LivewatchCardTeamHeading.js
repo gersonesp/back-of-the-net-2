@@ -2,17 +2,17 @@ import React from "react";
 
 import "./LivewatchCardTeamHeading.css";
 
-const LiveWatchCardTeamHeading = ({ homeTeam, awayTeam, gameMatch, teams }) => {
+const LiveWatchCardTeamHeading = ({ gameMatch, teams }) => {
   return (
     <div className="liveGame">
       <div className="team1">
-        {homeTeam}
+        {teams[gameMatch.team_h].name}
         <img
           className="teamImage"
           src={`https://back-of-the-net.s3.amazonaws.com/teams/${
             teams[gameMatch.team_h].short_name
           }.svg`}
-          alt={homeTeam}
+          alt={teams[gameMatch.team_h].name}
         />
       </div>
       <div className="liveScore">
@@ -25,9 +25,9 @@ const LiveWatchCardTeamHeading = ({ homeTeam, awayTeam, gameMatch, teams }) => {
           src={`https://back-of-the-net.s3.amazonaws.com/teams/${
             teams[gameMatch.team_a].short_name
           }.svg`}
-          alt={awayTeam}
+          alt={teams[gameMatch.team_a].name}
         />
-        {awayTeam}
+        {teams[gameMatch.team_a].name}
       </div>
     </div>
   );
