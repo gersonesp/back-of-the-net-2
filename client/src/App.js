@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -20,7 +20,10 @@ function App() {
   const [user, setUser] = useState(null);
   const [teams, setTeams] = useState({});
 
+  const prevUser = useRef();
   useEffect(() => {
+    prevUser.current = user;
+
     try {
       const AuthStr = localStorage.token;
       const getUserData = async () => {
@@ -38,14 +41,14 @@ function App() {
         setTeams(data);
       };
 
-      if (localStorage.token) {
+      if (localStorage.token && user === prevUser.current) {
         getUserData();
         getTeams();
       }
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [prevUser.current]);
 
   return (
     <UserContext.Provider
