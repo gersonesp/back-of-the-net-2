@@ -36,6 +36,7 @@ const MatchCard = ({
         } else {
           let initialPredictions = {};
 
+          // eslint-disable-next-line
           fixtures.map(({ team_a, team_h, id }) => {
             if (teams[team_a] && teams[team_h]) {
               initialPredictions[
@@ -55,6 +56,8 @@ const MatchCard = ({
     };
 
     populatePredictions();
+
+    // eslint-disable-next-line
   }, [teams]);
 
   return (

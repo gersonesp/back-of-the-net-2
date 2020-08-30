@@ -27,6 +27,8 @@ const TeamInput = ({
     ) {
       setScore(predictions[`${id}-${shortName}-${teamId}-${teamBase}`]);
     }
+
+    // eslint-disable-next-line
   }, [predictions]);
 
   const handleScoreChange = (event) => {

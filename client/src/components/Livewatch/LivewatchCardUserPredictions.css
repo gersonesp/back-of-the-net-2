@@ -13,3 +13,12 @@
     color: #646464;
     padding-bottom: 1rem;
 }
+
+.playerName {
+    display: flex;
+    align-items: center;
+}
+
+.playerName img {
+    margin-left: 1rem;
+}

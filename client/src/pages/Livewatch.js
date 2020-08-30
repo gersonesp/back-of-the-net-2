@@ -51,24 +51,13 @@ const Livewatch = () => {
     getAllMatches();
   }, []);
 
-  if (Object.keys(allPredictions).length === 0) {
-    return (
-      <div className="livewatchContainer">
-        <div className="pageHeader">
-          <p>
-            No predictions yet, come back after the first game of the week
-            starts!
-          </p>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="livewatchContainer">
-        <h1>Live Scores</h1>
-        {loading ? (
-          <CircularProgress className="loading" />
-        ) : (
+  return (
+    <div className="livewatchContainer">
+      {loading ? (
+        <CircularProgress />
+      ) : Object.keys(allPredictions).length > 0 ? (
+        <>
+          <h1>Live Scores</h1>
           <ul className="livewatchList">
             {Object.keys(allPredictions).map((gameId) => (
               <LivewatchCard
@@ -80,10 +69,17 @@ const Livewatch = () => {
               />
             ))}
           </ul>
-        )}
-      </div>
-    );
-  }
+        </>
+      ) : (
+        <div className="pageHeader">
+          <p>
+            No predictions yet, come back after the first game of the week
+            starts!
+          </p>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Livewatch;

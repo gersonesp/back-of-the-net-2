@@ -15,6 +15,7 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
   useEffect(() => {
     setKickoffTime(allMatches[gameId].kickoff_time);
     setMinutes(allMatches[gameId].minutes);
+    // eslint-disable-next-line
   }, [teams]);
 
   return (
@@ -27,6 +28,7 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
       <LivewatchCardUserPredictions
         allPredictions={allPredictions}
         allUsers={allUsers}
+        gameMatch={allMatches[gameId]}
       />
     </li>
   );

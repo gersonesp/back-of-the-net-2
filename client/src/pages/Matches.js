@@ -86,59 +86,55 @@ const Matches = () => {
     }
   };
 
-  if (fixtures.length === 0) {
-    return (
-      <div className="matchesContainer">
-        <div className="pageHeader">
-          <p>There are no current fixtures, check back soon!</p>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="matchesContainer">
-        {loading ? (
-          <CircularProgress className="loading" />
-        ) : (
-          <>
-            <div className="pageHeader">
-              <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
-              {buttonDisabled ? (
-                <div className="predictionsMessage">
-                  <div>You have submitted this gameweek's predictions.</div>
-                  <Link to="/livewatch">Go to Live Watch</Link>
-                </div>
-              ) : null}
-            </div>
+  return (
+    <div className="matchesContainer">
+      {loading ? (
+        <CircularProgress className="loading" />
+      ) : fixtures.length > 0 ? (
+        <>
+          <div className="pageHeader">
+            <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
+            {buttonDisabled ? (
+              <div className="predictionsMessage">
+                <div>You have submitted this gameweek's predictions.</div>
+                <Link to="/livewatch">Go to Live Watch</Link>
+              </div>
+            ) : null}
+          </div>
 
-            <div className="matchesList">
-              <form onSubmit={handleSubmit}>
-                {days.map((date) => (
-                  <MatchCard
-                    key={date}
-                    date={date}
-                    fixtures={fixtures}
-                    setButtonDisabled={setButtonDisabled}
-                    buttonDisabled={buttonDisabled}
-                    predictions={predictions}
-                    setPredictions={setPredictions}
-                  />
-                ))}
-                <button
-                  type="submit"
-                  className="submitButton"
-                  disabled={buttonDisabled}
-                  style={buttonDisabled ? style : null}
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
+          <div className="matchesList">
+            <form onSubmit={handleSubmit}>
+              {days.map((date) => (
+                <MatchCard
+                  key={date}
+                  date={date}
+                  fixtures={fixtures}
+                  setButtonDisabled={setButtonDisabled}
+                  buttonDisabled={buttonDisabled}
+                  predictions={predictions}
+                  setPredictions={setPredictions}
+                />
+              ))}
+              <button
+                type="submit"
+                className="submitButton"
+                disabled={buttonDisabled}
+                style={buttonDisabled ? style : null}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </>
+      ) : (
+        <div className="matchesContainer">
+          <div className="pageHeader">
+            <p>There are no current fixtures, check back soon!</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Matches;

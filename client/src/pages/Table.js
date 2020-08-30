@@ -2,8 +2,11 @@ import React from "react";
 
 const Table = () => {
   return (
-    <div>
-      <h1>Table</h1>
+    <div className="tableContainer">
+      <div className="pageHeader">
+        <h1>Table</h1>
+        <p>Coming soon!</p>
+      </div>
     </div>
   );
 };
