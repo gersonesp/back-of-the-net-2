@@ -38,6 +38,10 @@
     margin: 0 1rem 0 1rem;
 }
 
+.team input.dark {
+    color: white;
+}
+
 .team .scoreButton {
     padding: 0;
     margin: 0;

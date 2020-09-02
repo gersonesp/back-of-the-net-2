@@ -1,5 +1,7 @@
 :root {
   --main-color: #71b350;
+  --dark-bg: #1d1d1d;
+  --dark-main: #1a1a1a;
   --bg-gradiant: linear-gradient(45deg, rgba(17, 153, 142, 1) 35%, rgba(56, 239, 125, 1) 100%);
   --teal: #119988;
   --light-green: #e2f7ed;
@@ -8,7 +10,11 @@
   --purple: #8879f2;
   --blue: #3a66ff;
   --dark-blue: #395bd8;
+  --dark-gray: #262626;
   --primary-gray: #404040;
+  --medium-gray: #646464;
+  --light-blue-bg: #e5e8f0;
+  --disabled-gray: #bababa;
 }
 
 html * {
@@ -19,6 +25,10 @@ body {
   margin: 0;
   padding: 0;
   color: var(--primary-gray);
+}
+
+body.dark {
+  background-color: var(--dark-bg);
 }
 
 h1,
@@ -55,6 +65,7 @@ input {
 
 button {
   display: inline-block;
+  background: transparent;
   border: none;
   text-decoration: none;
   cursor: pointer;
@@ -62,7 +73,7 @@ button {
   -moz-appearance: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 840px) {
 
   .matchesContainer,
   .navbar ul,
@@ -71,12 +82,16 @@ button {
     width: 85%;
   }
 
+  .navbar .darkModeToggle {
+    right: 1rem;
+  }
+
   /* .livewatchContainer .playersPredictions .playerPrediction {
     flex-grow: 1.155;
   } */
 }
 
-@media (min-width: 700px) {
+@media (min-width: 840px) {
 
   .matchesContainer,
   .navbar ul,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import PredictionsContext from "../../context/PredictionsContext";
+import DarkModeContext from "../../context/DarkModeContext";
 
 import "./TeamInput.css";
 
@@ -19,6 +20,7 @@ const TeamInput = ({
 }) => {
   const [score, setScore] = useState(0);
   const { predictions, setPredictions } = useContext(PredictionsContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     if (
@@ -81,7 +83,12 @@ const TeamInput = ({
           >
             -
           </button>
-          <input readOnly={true} type="number" value={score} />
+          <input
+            className={darkMode ? "dark" : ""}
+            readOnly={true}
+            type="number"
+            value={score}
+          />
           <button
             className="scoreButton"
             name="add"

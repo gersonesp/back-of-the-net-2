@@ -1,4 +1,8 @@
 .matchTeamContainer {
-    padding: 0.3rem 2rem 1rem 2rem;
+    padding: .5rem 2rem;
     border-bottom: 1px solid #e6e6e6;
+}
+
+.matchTeamContainer.dark {
+    border-bottom: 1px solid var(--primary-gray);
 }

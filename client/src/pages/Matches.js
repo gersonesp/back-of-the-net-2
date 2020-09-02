@@ -4,17 +4,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
 import UserContext from "../context/UserContext";
+import DarkModeContext from "../context/DarkModeContext";
 import MatchCard from "../components/Matches/MatchCard";
 import "./Matches.css";
 
-const style = {
-  border: "1px solid #bababa",
-  backgroundColor: "#bababa",
-  cursor: "not-allowed",
-};
-
 const Matches = () => {
   const { user } = useContext(UserContext);
+  const { darkMode } = useContext(DarkModeContext);
   const [fixtures, setFixtures] = useState([]);
   const [days, setDays] = useState([]);
   const [gameweek, setGameweek] = useState(1);
@@ -86,16 +82,36 @@ const Matches = () => {
     }
   };
 
+  const setButtonStyle = () => {
+    if (darkMode && buttonDisabled) {
+      return "submitButton disabled dark";
+    } else if (buttonDisabled) {
+      return "submitButton disabled";
+    } else {
+      return "submitButton";
+    }
+  };
+
   return (
-    <div className="matchesContainer">
+    <div className={darkMode ? "matchesContainer dark" : "matchesContainer"}>
       {loading ? (
-        <CircularProgress className="loading" />
+        <div className="pageHeader">
+          <CircularProgress className="loading" />
+        </div>
       ) : fixtures.length > 0 ? (
         <>
           <div className="pageHeader">
-            <p className="matchesGameweek">Gameweek {gameweek} of 38</p>
+            <p
+              className={darkMode ? "matchesGameweek dark" : "matchesGameweek"}
+            >
+              Gameweek {gameweek} of 38
+            </p>
             {buttonDisabled ? (
-              <div className="predictionsMessage">
+              <div
+                className={
+                  darkMode ? "predictionsMessage dark" : "predictionsMessage"
+                }
+              >
                 <div>You have submitted this gameweek's predictions.</div>
                 <Link to="/livewatch">Go to Live Watch</Link>
               </div>
@@ -117,9 +133,8 @@ const Matches = () => {
               ))}
               <button
                 type="submit"
-                className="submitButton"
+                className={setButtonStyle()}
                 disabled={buttonDisabled}
-                style={buttonDisabled ? style : null}
               >
                 Submit
               </button>
@@ -127,10 +142,8 @@ const Matches = () => {
           </div>
         </>
       ) : (
-        <div className="matchesContainer">
-          <div className="pageHeader">
-            <p>There are no current fixtures, check back soon!</p>
-          </div>
+        <div className="pageHeader">
+          <p>There are no current fixtures, check back soon!</p>
         </div>
       )}
     </div>

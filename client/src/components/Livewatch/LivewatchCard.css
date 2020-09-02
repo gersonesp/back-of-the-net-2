@@ -14,3 +14,7 @@
 .livewatchCard .kickoffLive .time {
     color: #646464;
 }
+
+.livewatchCard .kickoffLive .time.dark {
+    color: white;
+}

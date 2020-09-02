@@ -1,27 +1,38 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../context/UserContext";
+import DarkModeContext from "../../context/DarkModeContext";
 
 import NavItem from "./NavItem";
+import moon from "../../img/moon.svg";
+import sun from "../../img/sun.svg";
 import "./Navbar.css";
 
 const Navbar = () => {
   const { logout } = useContext(UserContext);
+  const { darkMode, setDarkMode } = useContext(DarkModeContext);
 
   const handleLogout = () => {
     logout();
   };
 
+  const toggleDarkMode = () => {
+    const body = document.getElementsByClassName("body")[0];
+    setDarkMode(!darkMode);
+    !darkMode ? (body.className += " dark") : (body.className = "body");
+  };
+
   return (
-    <div className="navbar">
+    <div className={darkMode ? "navbar dark" : "navbar"}>
       <div className="heading">
         <Link to="/">
           <h1>Back of The Net</h1>
         </Link>
+
         <div className="navButton">
-          <button type="button" onClick={handleLogout}>
+          <Link to="/login" onClick={handleLogout}>
             Logout
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -30,6 +41,12 @@ const Navbar = () => {
         <NavItem title="Live Watch" path="livewatch" />
         <NavItem title="Table" path="table" />
       </ul>
+
+      <div className={darkMode ? "darkModeToggle dark" : "darkModeToggle"}>
+        <button onClick={toggleDarkMode}>
+          <img src={!darkMode ? moon : sun} alt="dark/light mode" />
+        </button>
+      </div>
     </div>
   );
 };

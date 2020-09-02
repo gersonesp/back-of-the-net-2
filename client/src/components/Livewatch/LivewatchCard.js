@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import TeamsContext from "../../context/TeamsContext";
+import DarkModeContext from "../../context/DarkModeContext";
 
 import LivewatchCardUserPredictions from "./LivewatchCardUserPredictions";
 import LivewatchCardTeamHeading from "./LivewatchCardTeamHeading";
@@ -9,6 +10,7 @@ import "./LivewatchCard.css";
 
 const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
   const { teams } = useContext(TeamsContext);
+  const { darkMode } = useContext(DarkModeContext);
   const [kickoffTime, setKickoffTime] = useState("");
   const [minutes, setMinutes] = useState("");
 
@@ -19,9 +21,11 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
   }, [teams]);
 
   return (
-    <li className="livewatchCard">
+    <li className={"livewatchCard"}>
       <div className="kickoffLive">
-        <div className="time">{convertTime(kickoffTime)}</div>
+        <div className={darkMode ? "time dark" : "time"}>
+          {convertTime(kickoffTime)}
+        </div>
         <span className="live">{minutes}</span>
       </div>
       <LivewatchCardTeamHeading teams={teams} gameMatch={allMatches[gameId]} />

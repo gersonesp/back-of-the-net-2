@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import DarkModeContext from "../../context/DarkModeContext";
 
 import "./LivewatchCardUserPredictions.css";
 
@@ -7,10 +8,12 @@ const LivewatchCardUserPredictions = ({
   allPredictions,
   gameMatch,
 }) => {
+  const { darkMode } = useContext(DarkModeContext);
+
   return allPredictions.map((prediction) => (
-    <div key={prediction.userId} className="playersPredictions">
+    <div key={prediction.userId} className={"playersPredictions"}>
       <div className="player">
-        <div className="playerName">
+        <div className={darkMode ? "playerName dark" : "playerName"}>
           {allUsers[prediction.userId]}
           {gameMatch.team_h_score === prediction.homeTeamScore &&
           gameMatch.team_a_score === prediction.awayTeamScore &&
@@ -21,7 +24,11 @@ const LivewatchCardUserPredictions = ({
             />
           ) : null}
         </div>
-        <div className="playersScorePrediction">
+        <div
+          className={
+            darkMode ? "playersScorePrediction dark" : "playersScorePrediction"
+          }
+        >
           {prediction.homeTeamScore} - {prediction.awayTeamScore}
         </div>
         <div />

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 
 import LivewatchCard from "../components/Livewatch/LivewatchCard";
+import DarkModeContext from "../context/DarkModeContext";
 import "./Livewatch.css";
 
 const Livewatch = () => {
@@ -10,6 +11,7 @@ const Livewatch = () => {
   const [allUsers, setAllUsers] = useState({});
   const [allMatches, setAllMatches] = useState({});
   const [loading, setLoading] = useState(false);
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const AuthStr = localStorage.token;
@@ -52,7 +54,9 @@ const Livewatch = () => {
   }, []);
 
   return (
-    <div className="livewatchContainer">
+    <div
+      className={darkMode ? "livewatchContainer dark" : "livewatchContainer"}
+    >
       {loading ? (
         <CircularProgress />
       ) : Object.keys(allPredictions).length > 0 ? (

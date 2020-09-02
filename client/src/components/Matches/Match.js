@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import DarkModeContext from "../../context/DarkModeContext";
 
 import TeamInput from "./TeamInput";
 
@@ -14,8 +15,9 @@ const Match = ({
   awayTeamId,
   homeTeamId,
 }) => {
+  const { darkMode } = useContext(DarkModeContext);
   return (
-    <li className="matchTeamContainer">
+    <li className={darkMode ? "matchTeamContainer dark" : "matchTeamContainer"}>
       <TeamInput
         name={homeTeam}
         id={id}

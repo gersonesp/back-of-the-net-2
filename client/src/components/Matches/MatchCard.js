@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import TeamsContext from "../../context/TeamsContext";
 import PredictionsContext from "../../context/PredictionsContext";
 import UserContext from "../../context/UserContext";
+import DarkModeContext from "../../context/DarkModeContext";
 import axios from "axios";
 
 import Match from "./Match";
@@ -18,6 +19,7 @@ const MatchCard = ({
 }) => {
   const { user } = useContext(UserContext);
   const { teams } = useContext(TeamsContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const populatePredictions = async () => {
@@ -62,8 +64,10 @@ const MatchCard = ({
 
   return (
     <PredictionsContext.Provider value={{ predictions, setPredictions }}>
-      <ul className="matchCard">
-        <div className="matchCardDate">{convertTime(date)}</div>
+      <ul className={darkMode ? "matchCard dark" : "matchCard"}>
+        <div className={darkMode ? "matchCardDate dark" : "matchCardDate"}>
+          {convertTime(date)}
+        </div>
         {fixtures.map(
           ({ kickoff_time, id, team_a, team_h }) =>
             date === kickoff_time.slice(0, kickoff_time.indexOf("T")) &&
