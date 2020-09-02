@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetch = require("node-fetch");
+const request = require("request");
 
 const authenticate = require("../../middlewares/authenticate");
 
@@ -9,80 +9,40 @@ const date = new Date();
 
 router.get("/gameweek-matches", authenticate, (req, res) => {
   try {
-    fetch(fixturesAPI)
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredData = data.filter(({ kickoff_time, event }) =>
-          kickoff_time >= date.toISOString() ? event : null
-        );
+    request({ url: fixturesAPI }, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: "error", message: error.message });
+      }
 
-        let gameweek = data[data.length - 1].event;
+      const data = JSON.parse(body);
 
-        if (filteredData.length > 0) {
-          gameweek = [...new Set(filteredData)][0].event;
-        }
+      const filteredData = data.filter(({ kickoff_time, event }) =>
+        kickoff_time >= date.toISOString() ? event : null
+      );
 
-        const gameweekFixtures = [];
+      let gameweek = data[data.length - 1].event;
 
-        data.map(
-          ({
-            event,
-            finished,
-            id,
-            kickoff_time,
-            minutes,
-            started,
-            team_a,
-            team_a_score,
-            team_h,
-            team_h_score,
-          }) => {
-            if (event === gameweek) {
-              gameweekFixtures.push({
-                event,
-                finished,
-                id,
-                kickoff_time,
-                minutes,
-                started,
-                team_a,
-                team_a_score,
-                team_h,
-                team_h_score,
-              });
-            }
-          }
-        );
+      if (filteredData.length > 0) {
+        gameweek = [...new Set(filteredData)][0].event;
+      }
 
-        res.send(gameweekFixtures);
-      });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(err);
-  }
-});
+      const gameweekFixtures = [];
 
-router.get("/allMatches", authenticate, async (req, res) => {
-  try {
-    fetch(fixturesAPI)
-      .then((response) => response.json())
-      .then((data) => {
-        const gameweekFixtures = {};
-
-        data.map(
-          ({
-            event,
-            finished,
-            id,
-            kickoff_time,
-            minutes,
-            started,
-            team_a,
-            team_a_score,
-            team_h,
-            team_h_score,
-          }) => {
-            gameweekFixtures[id] = {
+      data.map(
+        ({
+          event,
+          finished,
+          id,
+          kickoff_time,
+          minutes,
+          started,
+          team_a,
+          team_a_score,
+          team_h,
+          team_h_score,
+        }) => {
+          if (event === gameweek) {
+            gameweekFixtures.push({
               event,
               finished,
               id,
@@ -93,12 +53,58 @@ router.get("/allMatches", authenticate, async (req, res) => {
               team_a_score,
               team_h,
               team_h_score,
-            };
+            });
           }
-        );
+        }
+      );
 
-        res.send(gameweekFixtures);
-      });
+      return res.json(gameweekFixtures);
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+});
+
+router.get("/allMatches", authenticate, async (req, res) => {
+  try {
+    request({ url: fixturesAPI }, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: "error", message: error.message });
+      }
+      const data = JSON.parse(body);
+      const gameweekFixtures = {};
+
+      data.map(
+        ({
+          event,
+          finished,
+          id,
+          kickoff_time,
+          minutes,
+          started,
+          team_a,
+          team_a_score,
+          team_h,
+          team_h_score,
+        }) => {
+          gameweekFixtures[id] = {
+            event,
+            finished,
+            id,
+            kickoff_time,
+            minutes,
+            started,
+            team_a,
+            team_a_score,
+            team_h,
+            team_h_score,
+          };
+        }
+      );
+
+      return res.json(gameweekFixtures);
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send(err);

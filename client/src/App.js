@@ -50,6 +50,7 @@ function App() {
     } catch (err) {
       console.error(err);
     }
+    // eslint-disable-next-line
   }, [prevUser.current]);
 
   return (
