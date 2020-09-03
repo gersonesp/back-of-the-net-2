@@ -8,7 +8,7 @@
 }
 
 .matchCard.dark {
-    background-color: var(--dark-main);
+    background-color: var(--dark-gray);
     color: white;
 }
 

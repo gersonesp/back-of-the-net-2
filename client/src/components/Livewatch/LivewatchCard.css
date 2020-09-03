@@ -5,6 +5,10 @@
     margin-bottom: 1rem;
 }
 
+.livewatchCard.dark {
+    background: var(--dark-gray);
+}
+
 .livewatchCard .kickoffLive {
     display: flex;
     justify-content: space-between;
