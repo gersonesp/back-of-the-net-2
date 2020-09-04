@@ -56,6 +56,11 @@ ul {
   padding: 0;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 input {
   font-size: 1rem;
   -webkit-appearance: none;
@@ -75,16 +80,27 @@ button {
 }
 
 @media (max-width: 840px) {
+  .loginForm .blankCard {
+    min-width: 0rem;
+  }
 
   .matchesContainer,
   .navbar ul,
   .livewatchContainer {
     margin: 0 auto;
-    width: 85%;
+    /* width: 85%; */
+  }
+
+  .navbar ul {
+    width: calc(100% - 3rem);
   }
 
   .navbar .darkModeToggle {
     right: 1rem;
+  }
+
+  .predictionsMessageContent {
+    text-align: left;
   }
 
   /* .livewatchContainer .playersPredictions .playerPrediction {

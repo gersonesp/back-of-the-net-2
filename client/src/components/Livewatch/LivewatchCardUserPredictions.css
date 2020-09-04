@@ -8,19 +8,21 @@
     padding-bottom: 0;
 }
 
-.playerName {
-    padding-left: 2rem;
-    color: #646464;
-}
-
 .playersScorePrediction {
     justify-self: center;
     color: #646464;
 }
 
 .playerName {
-    display: flex;
+    display: grid;
+    grid-template-columns: 20px auto;
     align-items: center;
+    color: #646464;
+}
+
+.userName {
+    grid-column: 2;
+    margin-left: .5rem;
 }
 
 .playerName.dark,
@@ -29,5 +31,5 @@
 }
 
 .playerName img {
-    margin-left: 1rem;
+    margin-right: 1rem;
 }

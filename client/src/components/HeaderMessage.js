@@ -13,13 +13,15 @@ const HeaderMessage = ({ buttonDisabled, missedDeadLine, darkMode }) => {
           darkMode ? "predictionsMessage dark" : "predictionsMessage error"
         }
       >
-        <img src={deadline} alt="missed-deadline" />
         <div className="predictionsMessageContent">
-          <div>
-            You have missed the deadline for the submission of this gameweek,
-            try again next week!
+          <img src={deadline} alt="missed-deadline" />
+          <div className="messageContent">
+            <p>
+              You have missed the deadline for the submission of this gameweek,
+              try again next week!
+            </p>
+            <Link to="/livewatch">View your friends' predictions</Link>
           </div>
-          <Link to="/livewatch">View your friends' predictions</Link>
         </div>
       </div>
     );
@@ -30,9 +32,11 @@ const HeaderMessage = ({ buttonDisabled, missedDeadLine, darkMode }) => {
       >
         <img src={success} alt="submitted" />
         <div className="predictionsMessageContent">
-          <div>You have submitted this gameweek's predictions.</div>
+          <div className="messageContent">
+            <p>You have submitted this gameweek's predictions.</p>
 
-          <Link to="/livewatch">Go to Live Watch</Link>
+            <Link to="/livewatch">Go to Live Watch</Link>
+          </div>
         </div>
       </div>
     );

@@ -26,7 +26,7 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
         <div className={darkMode ? "time dark" : "time"}>
           {convertTime(kickoffTime)}
         </div>
-        <span className="live">{minutes}</span>
+        <span className="live">{`${minutes}'`}</span>
       </div>
       <LivewatchCardTeamHeading teams={teams} gameMatch={allMatches[gameId]} />
       <LivewatchCardUserPredictions

@@ -1,7 +1,6 @@
 .livewatchCard {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    width: 100%;
     margin-bottom: 1rem;
     padding: 1rem;
 }
@@ -10,15 +9,16 @@
     background: var(--dark-gray);
 }
 
-.livewatchCard .kickoffLive {
+.kickoffLive {
     display: flex;
     justify-content: space-between;
 }
 
-.livewatchCard .kickoffLive .time {
+.time {
     color: #646464;
+    margin-bottom: 1rem;
 }
 
-.livewatchCard .kickoffLive .time.dark {
+.time.dark {
     color: white;
 }

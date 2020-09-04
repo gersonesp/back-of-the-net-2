@@ -17,12 +17,14 @@ const LivewatchCardUserPredictions = ({
     return allPredictions.map((prediction) => (
       <div key={prediction.userId} className="player">
         <div className={darkMode ? "playerName dark" : "playerName"}>
-          {allUsers[prediction.userId]}
+          {/* If prediction matches live score, show star image */}
           {gameMatch.team_h_score === prediction.homeTeamScore &&
           gameMatch.team_a_score === prediction.awayTeamScore &&
           gameMatch.finished ? (
             <img src={star} alt="winner" />
           ) : null}
+
+          <div className="userName">{allUsers[prediction.userId]}</div>
         </div>
         <div
           className={
