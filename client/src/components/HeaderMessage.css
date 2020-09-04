@@ -1,0 +1,30 @@
+.predictionsMessage {
+    padding: 1rem;
+    background-color: var(--light-green);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.predictionsMessage.error {
+    background-color: var(--error-bg);
+}
+
+.predictionsMessage.dark {
+    background-color: var(--dark-gray);
+}
+
+.predictionsMessage a {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+.predictionsMessage a:hover {
+    text-decoration: underline;
+    color: var(--dark-blue);
+}
+
+.predictionsMessage img {
+    margin-right: 1rem;
+    align-self: start;
+}

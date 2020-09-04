@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
 import UserContext from "../context/UserContext";
 import DarkModeContext from "../context/DarkModeContext";
 import MatchCard from "../components/Matches/MatchCard";
+import HeaderMessage from "../components/HeaderMessage";
+import { setButtonStyle } from "../utils/setButtonStyle";
 import "./Matches.css";
 
 const Matches = () => {
@@ -17,6 +18,7 @@ const Matches = () => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [predictions, setPredictions] = useState({});
+  const [missedDeadline, setMissedDeadline] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -82,16 +84,6 @@ const Matches = () => {
     }
   };
 
-  const setButtonStyle = () => {
-    if (darkMode && buttonDisabled) {
-      return "submitButton disabled dark";
-    } else if (buttonDisabled) {
-      return "submitButton disabled";
-    } else {
-      return "submitButton";
-    }
-  };
-
   return (
     <div className={darkMode ? "matchesContainer dark" : "matchesContainer"}>
       {loading ? (
@@ -106,16 +98,12 @@ const Matches = () => {
             >
               Gameweek {gameweek} of 38
             </p>
-            {buttonDisabled ? (
-              <div
-                className={
-                  darkMode ? "predictionsMessage dark" : "predictionsMessage"
-                }
-              >
-                <div>You have submitted this gameweek's predictions.</div>
-                <Link to="/livewatch">Go to Live Watch</Link>
-              </div>
-            ) : null}
+
+            <HeaderMessage
+              buttonDisabled={buttonDisabled}
+              missedDeadLine={missedDeadline}
+              darkMode={darkMode}
+            />
           </div>
 
           <div className="matchesList">
@@ -129,11 +117,16 @@ const Matches = () => {
                   buttonDisabled={buttonDisabled}
                   predictions={predictions}
                   setPredictions={setPredictions}
+                  setMissedDeadline={setMissedDeadline}
                 />
               ))}
               <button
                 type="submit"
-                className={setButtonStyle()}
+                className={setButtonStyle(
+                  "submitButton",
+                  darkMode,
+                  buttonDisabled
+                )}
                 disabled={buttonDisabled}
               >
                 Submit

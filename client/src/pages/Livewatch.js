@@ -16,16 +16,16 @@ const Livewatch = () => {
   useEffect(() => {
     const AuthStr = localStorage.token;
     setLoading(true);
-    const getGameweek = async () => {
-      const { data } = await axios.get("/api/fixtures/gameweek-matches", {
-        headers: { Authorization: "Bearer " + AuthStr },
-      });
-      const gameweek = data[0].event;
-      getAllPredictions(gameweek);
-    };
+    // const getGameweek = async () => {
+    //   const { data } = await axios.get("/api/fixtures/gameweek-matches", {
+    //     headers: { Authorization: "Bearer " + AuthStr },
+    //   });
+    //   const gameweek = data[0].event;
+    //   getAllPredictions(gameweek);
+    // };
 
-    const getAllPredictions = async (gameweek) => {
-      const { data } = await axios.get(`/api/predictions/${gameweek}`, {
+    const getAllPredictions = async () => {
+      const { data } = await axios.get(`/api/predictions`, {
         headers: { Authorization: "Bearer " + AuthStr },
       });
       setAllPredictions(data);
@@ -46,9 +46,10 @@ const Livewatch = () => {
       });
 
       setAllMatches(data);
+      getAllPredictions();
     };
 
-    getGameweek();
+    // getGameweek();
     getAllUsers();
     getAllMatches();
   }, []);

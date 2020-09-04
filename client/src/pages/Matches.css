@@ -19,26 +19,6 @@
     width: 100%;
 }
 
-.predictionsMessage {
-    padding: 1rem;
-    background-color: var(--light-green);
-    border-radius: 4px;
-}
-
-.predictionsMessage.dark {
-    background-color: var(--dark-gray);
-}
-
-.predictionsMessage a {
-    text-decoration: none;
-    color: var(--blue);
-}
-
-.predictionsMessage a:hover {
-    text-decoration: underline;
-    color: var(--dark-blue);
-}
-
 .matchesContainer .loading {
     height: 100vh;
 }
@@ -63,11 +43,18 @@
     color: var(--medium-gray);
 }
 
+.submitButton.disabled.dark:hover {
+    cursor: not-allowed;
+    background-color: var(--primary-gray);
+    color: var(--medium-gray);
+}
 
 .submitButton.disabled:hover {
     cursor: not-allowed;
+    background-color: var(--disabled-gray);
 }
 
 .submitButton:hover {
     cursor: pointer;
+    background-color: var(--dark-blue)
 }

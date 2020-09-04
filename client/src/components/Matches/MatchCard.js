@@ -16,6 +16,7 @@ const MatchCard = ({
   buttonDisabled,
   predictions,
   setPredictions,
+  setMissedDeadline,
 }) => {
   const { user } = useContext(UserContext);
   const { teams } = useContext(TeamsContext);
@@ -36,6 +37,14 @@ const MatchCard = ({
           setPredictions(data.predictions);
           setButtonDisabled(true);
         } else {
+          const currentDate = new Date().getTime();
+          const fixtureDate = new Date(fixtures[0].kickoff_time).getTime();
+          if (currentDate >= fixtureDate) {
+            console.log(currentDate, fixtureDate);
+            setMissedDeadline(true);
+            setButtonDisabled(true);
+          }
+
           let initialPredictions = {};
 
           // eslint-disable-next-line

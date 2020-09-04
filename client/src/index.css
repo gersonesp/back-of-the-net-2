@@ -11,10 +11,11 @@
   --blue: #3a66ff;
   --dark-blue: #395bd8;
   --dark-gray: #262626;
-  --primary-gray: #404040;
+  --primary-gray: #333333;
   --medium-gray: #646464;
   --light-blue-bg: #e5e8f0;
   --disabled-gray: #bababa;
+  --error-bg: #fce7ea;
 }
 
 html * {

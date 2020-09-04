@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import DarkModeContext from "../../context/DarkModeContext";
 
+import star from "../../img/star.svg";
 import "./LivewatchCardUserPredictions.css";
 
 const LivewatchCardUserPredictions = ({
@@ -10,18 +11,17 @@ const LivewatchCardUserPredictions = ({
 }) => {
   const { darkMode } = useContext(DarkModeContext);
 
-  return allPredictions.map((prediction) => (
-    <div key={prediction.userId} className={"playersPredictions"}>
-      <div className="player">
+  if (allPredictions.length === 0) {
+    return <div />;
+  } else {
+    return allPredictions.map((prediction) => (
+      <div key={prediction.userId} className="player">
         <div className={darkMode ? "playerName dark" : "playerName"}>
           {allUsers[prediction.userId]}
           {gameMatch.team_h_score === prediction.homeTeamScore &&
           gameMatch.team_a_score === prediction.awayTeamScore &&
           gameMatch.finished ? (
-            <img
-              src="https://back-of-the-net.s3.amazonaws.com/assets/stars-24px.svg"
-              alt="winner"
-            />
+            <img src={star} alt="winner" />
           ) : null}
         </div>
         <div
@@ -33,8 +33,8 @@ const LivewatchCardUserPredictions = ({
         </div>
         <div />
       </div>
-    </div>
-  ));
+    ));
+  }
 };
 
 export default LivewatchCardUserPredictions;

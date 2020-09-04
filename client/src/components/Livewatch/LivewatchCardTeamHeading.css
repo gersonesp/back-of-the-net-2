@@ -1,6 +1,7 @@
 .liveGame {
     display: grid;
     grid-template-columns: 1fr 40px 1fr;
+    padding-bottom: 1rem;
 }
 
 .liveGame .team1 {

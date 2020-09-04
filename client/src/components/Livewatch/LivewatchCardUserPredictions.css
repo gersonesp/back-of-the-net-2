@@ -1,17 +1,21 @@
-.playersPredictions .player {
+.player {
     display: grid;
     grid-template-columns: 1fr 40px 1fr;
+    padding-bottom: 1rem;
 }
 
-.playersPredictions .playerName {
+.player:last-child {
+    padding-bottom: 0;
+}
+
+.playerName {
     padding-left: 2rem;
     color: #646464;
 }
 
-.playersPredictions .playersScorePrediction {
+.playersScorePrediction {
     justify-self: center;
     color: #646464;
-    padding-bottom: 1rem;
 }
 
 .playerName {

@@ -3,6 +3,7 @@
     border-radius: 4px;
     width: 100%;
     margin-bottom: 1rem;
+    padding: 1rem;
 }
 
 .livewatchCard.dark {
@@ -12,7 +13,6 @@
 .livewatchCard .kickoffLive {
     display: flex;
     justify-content: space-between;
-    padding: 1rem 1rem;
 }
 
 .livewatchCard .kickoffLive .time {

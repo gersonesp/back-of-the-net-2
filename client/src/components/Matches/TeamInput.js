@@ -2,13 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import PredictionsContext from "../../context/PredictionsContext";
 import DarkModeContext from "../../context/DarkModeContext";
 
+import { setButtonStyle } from "../../utils/setButtonStyle";
 import "./TeamInput.css";
-
-const style = {
-  border: "1px solid #bababa",
-  color: "#bababa",
-  cursor: "default",
-};
 
 const TeamInput = ({
   name,
@@ -75,11 +70,10 @@ const TeamInput = ({
       <div>
         <div>
           <button
-            className="scoreButton"
+            className={setButtonStyle("scoreButton", darkMode, buttonDisabled)}
             name="minus"
             onClick={handleScoreChange}
             disabled={buttonDisabled}
-            style={buttonDisabled ? style : null}
           >
             -
           </button>
@@ -90,11 +84,10 @@ const TeamInput = ({
             value={score}
           />
           <button
-            className="scoreButton"
+            className={setButtonStyle("scoreButton", darkMode, buttonDisabled)}
             name="add"
             onClick={handleScoreChange}
             disabled={buttonDisabled}
-            style={buttonDisabled ? style : null}
           >
             +
           </button>
