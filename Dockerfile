@@ -10,7 +10,8 @@ RUN cd client && \
     npm run build -q
 
 # build server
-RUN npm install -q --production
+RUN cd server && \
+    npm install -q --production
 
 EXPOSE 3000
 CMD npm start
