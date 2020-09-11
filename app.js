@@ -25,14 +25,18 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// ***
 // development
-app.use(express.static(join(__dirname, "public")));
+// app.use(express.static(join(__dirname, "public")));
+// ***
 
-// production
-// app.use(express.static(join(__dirname, "build")));
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
+// ***
+// production;
+app.use(express.static(join(__dirname, "build")));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+// ***
 
 // Passport middleware
 app.use(passport.initialize());
