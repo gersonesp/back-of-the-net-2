@@ -61,19 +61,19 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateLoginInput(req.body);
-
-  // Check validation
-  if (!isValid) {
-    return res.status(400).send(errors);
-  }
-
-  const email = req.body.email;
-  const password = req.body.password;
-
-  // Find user by email
   try {
+    // Form validation
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      return res.status(400).send(errors);
+    }
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // Find user by email
     const user = await User.findOne({ email });
 
     if (!user) {

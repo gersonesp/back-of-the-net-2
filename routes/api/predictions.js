@@ -10,8 +10,8 @@ const getGameWeekFixtures = require("../../utils/getGameweekFixtures");
 const fixturesAPI = "https://fantasy.premierleague.com/api/fixtures/";
 
 router.post("/", authenticate, (req, res) => {
-  const { userId, gameweek, predictions } = req.body;
   try {
+    const { userId, gameweek, predictions } = req.body;
     request({ url: fixturesAPI }, async (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: "error", message: error.message });
