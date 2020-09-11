@@ -16,6 +16,7 @@
   --light-blue-bg: #e5e8f0;
   --disabled-gray: #bababa;
   --error-bg: #fce7ea;
+  --warning-bg: #fefaf1;
 }
 
 html * {

@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { calculateTimeLeft } from "../utils/calculateTimeLeft";
 import deadline from "../img/deadline.svg";
 import success from "../img/success.svg";
+import timer from "../img/timer.svg";
 import "./HeaderMessage.css";
 
-const HeaderMessage = ({ buttonDisabled, missedDeadLine, darkMode }) => {
+const HeaderMessage = ({
+  buttonDisabled,
+  missedDeadLine,
+  darkMode,
+  firstKickOffTime,
+}) => {
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(firstKickOffTime));
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft(firstKickOffTime));
+    }, 1000);
+    // Clear timeout if the component is unmounted
+    return () => clearTimeout(timer);
+  });
+
+  const timerComponents = [];
+
+  Object.keys(timeLeft).forEach((interval) => {
+    if (!timeLeft[interval]) {
+      return;
+    }
+
+    timerComponents.push(
+      <span>
+        {timeLeft[interval]} {interval}{" "}
+      </span>
+    );
+  });
+
   if (buttonDisabled && missedDeadLine) {
     return (
       <div
@@ -41,7 +72,25 @@ const HeaderMessage = ({ buttonDisabled, missedDeadLine, darkMode }) => {
       </div>
     );
   } else {
-    return null;
+    return (
+      <div
+        className={
+          darkMode ? "predictionsMessage dark" : "predictionsMessage timer"
+        }
+      >
+        <img src={timer} alt="timer" />
+        <div className="predictionsMessageContent">
+          <div className="messageContent">
+            <p>
+              Please make sure to submit your predictions before the first game
+              of the week starts.
+            </p>
+
+            <div>{timerComponents.length ? timerComponents : null}</div>
+          </div>
+        </div>
+      </div>
+    );
   }
 };
 

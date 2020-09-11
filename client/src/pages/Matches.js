@@ -103,6 +103,7 @@ const Matches = () => {
               buttonDisabled={buttonDisabled}
               missedDeadLine={missedDeadline}
               darkMode={darkMode}
+              firstKickOffTime={fixtures[0].kickoff_time}
             />
           </div>
 
