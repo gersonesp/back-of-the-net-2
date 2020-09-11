@@ -62,7 +62,7 @@ const Signup = () => {
         </div>
         <div className="inputContainer">
           <div className="labelInput">
-            <label>Name</label>
+            <label>Username</label>
             <input
               className={errors.name ? "inputError" : null}
               type="name"
