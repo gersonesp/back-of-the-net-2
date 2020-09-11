@@ -36,7 +36,7 @@ app.use(passport.initialize());
 configurePassport(passport);
 
 // Routes
-// app.use("/", indexRouter);
+app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/predictions", predictionsRouter);
 app.use("/api/fixtures", fixturesRouter);
