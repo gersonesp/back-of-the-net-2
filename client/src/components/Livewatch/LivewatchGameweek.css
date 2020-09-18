@@ -1,0 +1,56 @@
+.livewatchGameweek {
+    display: flex;
+    flex-direction: column;
+    /* box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); */
+    border-radius: 4px;
+    padding-top: 1rem;
+}
+
+.livewatchGameweek:hover {
+    cursor: pointer;
+}
+
+.livewatchGameweekHeader {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-column-gap: .5rem;
+    align-items: center;
+    border-radius: 4px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.livewatchGameweekHeader:before {
+    content: "";
+    height: 1px;
+    width: 100%;
+    background-color: var(--disabled-gray);
+}
+
+.livewatchGameweekHeader.dark:before {
+    background-color: var(--primary-gray);
+}
+
+.livewatchGameweekHeader p {
+    margin-right: .5rem;
+}
+
+.livewatchGameweekHeader:after {
+    content: "";
+    height: 1px;
+    width: 100%;
+    background-color: var(--disabled-gray);
+}
+
+.livewatchGameweekHeader.dark:after {
+    background-color: var(--primary-gray);
+}
+
+.livewatchGameweekHeaderContent {
+    display: flex;
+    align-items: center;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}

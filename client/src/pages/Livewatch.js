@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 
-import LivewatchCard from "../components/Livewatch/LivewatchCard";
+import LivewatchGameweek from "../components/Livewatch/LivewatchGameweek";
 import DarkModeContext from "../context/DarkModeContext";
 import "./Livewatch.css";
 
@@ -11,24 +11,31 @@ const Livewatch = () => {
   const [allUsers, setAllUsers] = useState({});
   const [allMatches, setAllMatches] = useState({});
   const [loading, setLoading] = useState(false);
+  const [allGameWeeks, setAllGameWeeks] = useState([]);
   const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const AuthStr = localStorage.token;
     setLoading(true);
-    // const getGameweek = async () => {
-    //   const { data } = await axios.get("/api/fixtures/gameweek-matches", {
-    //     headers: { Authorization: "Bearer " + AuthStr },
-    //   });
-    //   const gameweek = data[0].event;
-    //   getAllPredictions(gameweek);
-    // };
 
     const getAllPredictions = async () => {
       const { data } = await axios.get(`/api/predictions`, {
         headers: { Authorization: "Bearer " + AuthStr },
       });
       setAllPredictions(data);
+
+      let seen = new Set();
+      const newAllGameWeeks = [];
+      // eslint-disable-next-line
+      Object.values(data).map((predictionObj) => {
+        const gameweek = predictionObj[0].gameweek;
+        if (!seen.has(gameweek)) {
+          seen.add(gameweek);
+          newAllGameWeeks.push(gameweek);
+        }
+      });
+
+      setAllGameWeeks(newAllGameWeeks.reverse());
       setLoading(false);
     };
 
@@ -64,13 +71,14 @@ const Livewatch = () => {
         <>
           <h1>Live Scores</h1>
           <ul className="livewatchList">
-            {Object.keys(allPredictions).map((gameId) => (
-              <LivewatchCard
-                key={gameId}
-                gameId={gameId}
-                allPredictions={allPredictions[gameId]}
-                allUsers={allUsers}
+            {allGameWeeks.map((gameweek, index) => (
+              <LivewatchGameweek
+                key={gameweek}
+                gameweek={gameweek}
                 allMatches={allMatches}
+                allUsers={allUsers}
+                allPredictions={allPredictions}
+                index={index}
               />
             ))}
           </ul>
