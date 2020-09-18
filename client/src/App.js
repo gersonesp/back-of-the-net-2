@@ -33,6 +33,11 @@ function App() {
           headers: { Authorization: "Bearer " + AuthStr },
         });
         setUser(data);
+        if (data.darkMode) {
+          const body = document.getElementsByClassName("body")[0];
+          setDarkMode(data.darkMode);
+          body.className += " dark";
+        }
       };
 
       const getTeams = async () => {

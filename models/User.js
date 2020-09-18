@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  darkMode: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const User = mongoose.model("users", UserSchema);

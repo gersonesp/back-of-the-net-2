@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";
 
@@ -16,10 +17,23 @@ const Navbar = () => {
     logout();
   };
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = async () => {
     const body = document.getElementsByClassName("body")[0];
     setDarkMode(!darkMode);
     !darkMode ? (body.className += " dark") : (body.className = "body");
+
+    try {
+      const AuthStr = localStorage.token;
+      await axios.put(
+        "/api/users/darkMode",
+        { darkMode: !darkMode },
+        {
+          headers: { Authorization: "Bearer " + AuthStr },
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

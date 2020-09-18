@@ -104,8 +104,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/me", authenticate, (req, res) => {
-  const { id, email, name } = req.user;
-  res.json({ id, email, name });
+  const { id, email, name, darkMode } = req.user;
+  res.json({ id, email, name, darkMode });
 });
 
 router.get("/", authenticate, async (req, res) => {
@@ -119,6 +119,22 @@ router.get("/", authenticate, async (req, res) => {
     res.status(200).send(filteredUsers);
   } catch (err) {
     console.error(err);
+  }
+});
+
+router.put("/darkMode", authenticate, async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { darkMode } = req.body;
+
+    const user = await User.findOne({ _id: id });
+    user.darkMode = darkMode;
+    user.save();
+
+    res.status(200);
+  } catch (err) {
+    console.error(err);
+    res.status(500).end();
   }
 });
 
