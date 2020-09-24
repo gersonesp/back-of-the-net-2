@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -18,14 +18,11 @@ import { remove } from "./utils/storage";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ id: "" });
   const [teams, setTeams] = useState({});
   const [darkMode, setDarkMode] = useState(false);
 
-  const prevUser = useRef();
   useEffect(() => {
-    prevUser.current = user;
-
     try {
       const AuthStr = localStorage.token;
       const getUserData = async () => {
@@ -48,7 +45,7 @@ function App() {
         setTeams(data);
       };
 
-      if (localStorage.token && user === prevUser.current) {
+      if (localStorage.token) {
         getUserData();
         getTeams();
       }
@@ -56,7 +53,7 @@ function App() {
       console.error(err);
     }
     // eslint-disable-next-line
-  }, [prevUser.current]);
+  }, [user.id]);
 
   return (
     <UserContext.Provider
@@ -64,7 +61,7 @@ function App() {
         user,
         setUser,
         logout: () => {
-          setUser(null);
+          setUser({ id: "" });
           remove("token");
           delete axios.defaults.headers.common.Authorization;
         },
@@ -74,7 +71,7 @@ function App() {
         <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
           <MuiThemeProvider theme={theme}>
             <BrowserRouter>
-              {user && (
+              {user.id && (
                 <>
                   <Navbar />
                   <Route path="/livewatch" component={Livewatch} />
@@ -84,7 +81,7 @@ function App() {
                 </>
               )}
 
-              {!user && (
+              {!user.id && (
                 <Switch>
                   <Route path="/login" component={Login} />
                   <Route path="/register" component={Signup} />

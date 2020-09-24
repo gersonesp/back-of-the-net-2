@@ -1,9 +1,7 @@
 .livewatchGameweek {
     display: flex;
     flex-direction: column;
-    /* box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); */
     border-radius: 4px;
-    padding-top: 1rem;
 }
 
 .livewatchGameweek:hover {

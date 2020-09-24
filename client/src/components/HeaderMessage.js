@@ -32,7 +32,8 @@ const HeaderMessage = ({
 
     timerComponents.push(
       <span key={interval}>
-        {timeLeft[interval]} {interval}{" "}
+        {timeLeft[interval]}
+        {interval}{" "}
       </span>
     );
   });
