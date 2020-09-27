@@ -13,10 +13,21 @@ const LivewatchGameweek = ({
   allPredictions,
 }) => {
   const [display, setDisplay] = useState(false);
+  const [gameweekMatches, setGameweekMatches] = useState([]);
   const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     if (index === 0) setDisplay(true);
+
+    const filteredMatches = Object.values(allMatches).filter(
+      (match) => match.event == gameweek
+    );
+
+    filteredMatches.sort(
+      (a, b) => new Date(a.kickoff_time) - new Date(b.kickoff_time)
+    );
+
+    setGameweekMatches(filteredMatches);
   }, [index]);
 
   const toggleDisplay = () => {
@@ -45,18 +56,20 @@ const LivewatchGameweek = ({
       </div>
       {display && (
         <div className="livewatchCardDisplay">
-          {Object.keys(allPredictions).map((gameId) =>
+          {
             // eslint-disable-next-line
-            allMatches[gameId].event == gameweek ? (
-              <LivewatchCard
-                key={gameId}
-                gameId={gameId}
-                allPredictions={allPredictions[gameId]}
-                allUsers={allUsers}
-                allMatches={allMatches}
-              />
-            ) : null
-          )}
+            gameweekMatches.map((match) => {
+              return match.event == gameweek ? (
+                <LivewatchCard
+                  key={match.id}
+                  gameId={match.id}
+                  allPredictions={allPredictions[match.id]}
+                  allUsers={allUsers}
+                  allMatches={allMatches}
+                />
+              ) : null;
+            })
+          }
         </div>
       )}
     </li>
