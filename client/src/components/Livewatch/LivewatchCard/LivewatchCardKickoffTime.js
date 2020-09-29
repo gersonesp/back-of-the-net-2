@@ -27,17 +27,21 @@ const LivewatchCardKickoffTime = ({ darkMode, kickoffTime, finished }) => {
         {`${weekday} ${month}/${date}/${year}`}
       </div>
 
-      <span className="live">
+      <div className="live">
         {finished ? (
           "FT"
         ) : new Date(kickoffTime) <= new Date() && !finished ? (
           <div>
-            <span className="liveDot" /> Live
+            <div className="liveContent">
+              <span className="liveDotBorder" />
+              <span className="liveDot" />
+              <span>Live</span>
+            </div>
           </div>
         ) : (
           <div>{`${hour}:${minutes}`}</div>
         )}
-      </span>
+      </div>
     </div>
   );
 };
