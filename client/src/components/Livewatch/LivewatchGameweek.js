@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import LivewatchCard from "./LivewatchCard";
+import LivewatchCard from "./LivewatchCard/LivewatchCard";
 
 import DarkModeContext from "../../context/DarkModeContext";
 import chevron from "../../img/chevron.svg";
@@ -20,6 +20,7 @@ const LivewatchGameweek = ({
     if (index === 0) setDisplay(true);
 
     const filteredMatches = Object.values(allMatches).filter(
+      // eslint-disable-next-line
       (match) => match.event == gameweek
     );
 
@@ -28,6 +29,7 @@ const LivewatchGameweek = ({
     );
 
     setGameweekMatches(filteredMatches);
+    // eslint-disable-next-line
   }, [index]);
 
   const toggleDisplay = () => {
@@ -56,20 +58,18 @@ const LivewatchGameweek = ({
       </div>
       {display && (
         <div className="livewatchCardDisplay">
-          {
+          {gameweekMatches.map((match) => {
             // eslint-disable-next-line
-            gameweekMatches.map((match) => {
-              return match.event == gameweek ? (
-                <LivewatchCard
-                  key={match.id}
-                  gameId={match.id}
-                  allPredictions={allPredictions[match.id]}
-                  allUsers={allUsers}
-                  allMatches={allMatches}
-                />
-              ) : null;
-            })
-          }
+            return match.event == gameweek ? (
+              <LivewatchCard
+                key={match.id}
+                gameId={match.id}
+                allPredictions={allPredictions[match.id]}
+                allUsers={allUsers}
+                allMatches={allMatches}
+              />
+            ) : null;
+          })}
         </div>
       )}
     </li>

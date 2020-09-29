@@ -1,38 +1,40 @@
 import React, { useEffect, useContext, useState } from "react";
-import TeamsContext from "../../context/TeamsContext";
-import DarkModeContext from "../../context/DarkModeContext";
+import TeamsContext from "../../../context/TeamsContext";
+import DarkModeContext from "../../../context/DarkModeContext";
 
 import LivewatchCardUserPredictions from "./LivewatchCardUserPredictions";
 import LivewatchCardTeamHeading from "./LivewatchCardTeamHeading";
+import LivewatchCardKickoffTime from "./LivewatchCardKickoffTime";
 
-import { convertTime } from "../../utils/convertTime";
 import "./LivewatchCard.css";
 
 const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
   const { teams } = useContext(TeamsContext);
   const { darkMode } = useContext(DarkModeContext);
   const [kickoffTime, setKickoffTime] = useState("");
-  const [minutes, setMinutes] = useState("");
+  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     setKickoffTime(allMatches[gameId].kickoff_time);
-    setMinutes(allMatches[gameId].minutes);
+    setFinished(allMatches[gameId].finished);
     // eslint-disable-next-line
   }, [teams]);
 
   return (
     <div className={darkMode ? "livewatchCard dark" : "livewatchCard"}>
-      <div className="kickoffLive">
-        <div className={darkMode ? "time dark" : "time"}>
-          {convertTime(kickoffTime)}
-        </div>
-        <span className="live">{minutes === "90" ? "FT" : null}</span>
-      </div>
+      <LivewatchCardKickoffTime
+        darkMode={darkMode}
+        kickoffTime={kickoffTime}
+        finished={finished}
+      />
+
       <LivewatchCardTeamHeading teams={teams} gameMatch={allMatches[gameId]} />
+
       <LivewatchCardUserPredictions
         allPredictions={allPredictions}
         allUsers={allUsers}
         gameMatch={allMatches[gameId]}
+        darkMode={darkMode}
       />
     </div>
   );

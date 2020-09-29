@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
-import DarkModeContext from "../../context/DarkModeContext";
+import React from "react";
 
-import star from "../../img/star.svg";
+import star from "../../../img/star.svg";
 import "./LivewatchCardUserPredictions.css";
 
 const LivewatchCardUserPredictions = ({
   allUsers,
   allPredictions,
   gameMatch,
+  darkMode,
 }) => {
-  const { darkMode } = useContext(DarkModeContext);
-
   if (allPredictions.length === 0) {
     return <div />;
   } else {

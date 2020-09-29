@@ -9,11 +9,6 @@
     background: var(--dark-gray);
 }
 
-.kickoffLive {
-    display: flex;
-    justify-content: space-between;
-}
-
 .time {
     color: #646464;
     margin-bottom: 1rem;

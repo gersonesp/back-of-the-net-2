@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TeamsContext from "../../context/TeamsContext";
 import PredictionsContext from "../../context/PredictionsContext";
 import UserContext from "../../context/UserContext";
@@ -21,8 +21,19 @@ const MatchCard = ({
   const { user } = useContext(UserContext);
   const { teams } = useContext(TeamsContext);
   const { darkMode } = useContext(DarkModeContext);
+  const [weekday, setWeekday] = useState("");
+  const [month, setMonth] = useState("");
+  const [kickoffDate, setKickoffDate] = useState("");
+  const [year, setYear] = useState("");
 
   useEffect(() => {
+    const time = convertTime(date);
+
+    setWeekday(time.weekday);
+    setMonth(time.month);
+    setKickoffDate(time.date);
+    setYear(time.year);
+
     const populatePredictions = async () => {
       try {
         const AuthStr = localStorage.token;
@@ -75,7 +86,7 @@ const MatchCard = ({
     <PredictionsContext.Provider value={{ predictions, setPredictions }}>
       <ul className={darkMode ? "matchCard dark" : "matchCard"}>
         <div className={darkMode ? "matchCardDate dark" : "matchCardDate"}>
-          {convertTime(date)}
+          {`${weekday} ${month}/${kickoffDate}/${year}`}
         </div>
         {fixtures.map(
           ({ kickoff_time, id, team_a, team_h }) =>
