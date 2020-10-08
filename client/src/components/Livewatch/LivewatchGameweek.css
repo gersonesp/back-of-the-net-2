@@ -52,3 +52,29 @@
 .rotate {
     transform: rotate(180deg);
 }
+
+.winnerMessage {
+    padding: 1rem;
+    background-color: var(--warning-bg);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.winnerMessage.dark {
+    background-color: var(--dark-gray);
+}
+
+.gameweekWinners {
+    display: flex;
+    justify-content: center;
+}
+
+.gameweekWinners img {
+    margin-right: 1rem;
+}
+
+.gameweekWinners li:not(:last-child) {
+    margin-right: .5rem;
+}

@@ -19,7 +19,8 @@ const LivewatchCardKickoffTime = ({ darkMode, kickoffTime, finished }) => {
     setYear(time.year);
     setHour(time.hour);
     setMinutes(time.minutes);
-  });
+    // eslint-disable-next-line
+  }, [kickoffTime]);
 
   return (
     <div className="kickoffLive">

@@ -8,7 +8,13 @@ import LivewatchCardKickoffTime from "./LivewatchCardKickoffTime";
 
 import "./LivewatchCard.css";
 
-const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
+const LivewatchCard = ({
+  gameId,
+  allPredictions,
+  allUsers,
+  allMatches,
+  saveGameweekWinner,
+}) => {
   const { teams } = useContext(TeamsContext);
   const { darkMode } = useContext(DarkModeContext);
   const [kickoffTime, setKickoffTime] = useState("");
@@ -35,6 +41,7 @@ const LivewatchCard = ({ gameId, allPredictions, allUsers, allMatches }) => {
         allUsers={allUsers}
         gameMatch={allMatches[gameId]}
         darkMode={darkMode}
+        saveGameweekWinner={saveGameweekWinner}
       />
     </div>
   );

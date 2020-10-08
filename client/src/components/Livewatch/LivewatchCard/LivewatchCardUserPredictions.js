@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import star from "../../../img/star.svg";
 import "./LivewatchCardUserPredictions.css";
@@ -8,7 +8,18 @@ const LivewatchCardUserPredictions = ({
   allPredictions,
   gameMatch,
   darkMode,
+  saveGameweekWinner,
 }) => {
+  useEffect(() => {
+    saveGameweekWinner(
+      allPredictions,
+      gameMatch.team_h_score,
+      gameMatch.team_a_score,
+      gameMatch.finished
+    );
+    // eslint-disable-next-line
+  }, []);
+
   if (allPredictions.length === 0) {
     return <div />;
   } else {
