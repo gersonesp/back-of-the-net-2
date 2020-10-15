@@ -66,9 +66,7 @@ const LivewatchGameweek = ({
     );
 
     // eslint-disable-next-line
-    const winners = sortedCorrectPredictions.map((name) => {
-      // eslint-disable-next-line
-      if (correctPredictions[name] < largest) return;
+    const winners = sortedCorrectPredictions.filter((name) => {
       if (correctPredictions[name] >= largest) return name;
     });
 

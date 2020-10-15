@@ -78,3 +78,7 @@
 .gameweekWinners li:not(:last-child) {
     margin-right: .5rem;
 }
+
+.gameweekWinners li:not(:last-child):after {
+    content: ","
+}
