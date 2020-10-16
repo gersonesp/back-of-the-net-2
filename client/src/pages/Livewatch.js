@@ -35,7 +35,8 @@ const Livewatch = () => {
         }
       });
 
-      setAllGameWeeks(newAllGameWeeks.reverse());
+      newAllGameWeeks.reverse();
+      setAllGameWeeks(newAllGameWeeks);
       setLoading(false);
     };
 

@@ -113,7 +113,8 @@ button {
 
   .matchesContainer,
   .navbar ul,
-  .livewatchContainer {
+  .livewatchContainer,
+  .tableContainer {
     margin: 0 auto;
     max-width: 36rem;
   }
