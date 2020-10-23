@@ -96,7 +96,7 @@ const LivewatchGameweek = ({
 
       {display &&
         gameweekMatches.length > 0 &&
-        gameweekMatches[gameweekMatches.length - 1].finished && (
+        gameweekMatches[gameweekMatches.length - 1].minutes === 90 && (
           <div className={darkMode ? "winnerMessage dark" : "winnerMessage"}>
             <ul className="gameweekWinners">
               <img src={trophy} alt="trophy" />

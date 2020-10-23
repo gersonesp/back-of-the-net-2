@@ -69,21 +69,18 @@ const Livewatch = () => {
       {loading ? (
         <CircularProgress />
       ) : Object.keys(allPredictions).length > 0 ? (
-        <>
-          <h1>Live Scores</h1>
-          <ul className="livewatchList">
-            {allGameWeeks.map((gameweek, index) => (
-              <LivewatchGameweek
-                key={gameweek}
-                gameweek={gameweek}
-                allMatches={allMatches}
-                allUsers={allUsers}
-                allPredictions={allPredictions}
-                index={index}
-              />
-            ))}
-          </ul>
-        </>
+        <ul className="livewatchList">
+          {allGameWeeks.map((gameweek, index) => (
+            <LivewatchGameweek
+              key={gameweek}
+              gameweek={gameweek}
+              allMatches={allMatches}
+              allUsers={allUsers}
+              allPredictions={allPredictions}
+              index={index}
+            />
+          ))}
+        </ul>
       ) : (
         <div className="pageHeader">
           <p>

@@ -22,7 +22,7 @@ export const generateTable = (allMatches, teamsArray) => {
       const awayTeamId = match.team_a;
       const awayTeamScore = match.team_a_score;
 
-      if (match.finished) {
+      if (match.minutes === 90) {
         if (homeTeamScore > awayTeamScore) {
           tableObject[homeTeamId].win++;
           tableObject[homeTeamId].total += 3;

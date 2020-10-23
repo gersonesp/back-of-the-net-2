@@ -22,7 +22,7 @@ const LivewatchCard = ({
 
   useEffect(() => {
     setKickoffTime(allMatches[gameId].kickoff_time);
-    setFinished(allMatches[gameId].finished);
+    setFinished(allMatches[gameId].minutes === 90);
     // eslint-disable-next-line
   }, [teams]);
 

@@ -15,7 +15,7 @@ const LivewatchCardUserPredictions = ({
       allPredictions,
       gameMatch.team_h_score,
       gameMatch.team_a_score,
-      gameMatch.finished
+      gameMatch.minutes === 90
     );
     // eslint-disable-next-line
   }, []);
@@ -29,7 +29,7 @@ const LivewatchCardUserPredictions = ({
           {/* If prediction matches live score, show star image */}
           {gameMatch.team_h_score === prediction.homeTeamScore &&
           gameMatch.team_a_score === prediction.awayTeamScore &&
-          gameMatch.finished ? (
+          gameMatch.minutes === 90 ? (
             <img src={star} alt="winner" />
           ) : null}
 

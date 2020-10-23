@@ -12,11 +12,19 @@ const TableTeamPosition = ({
   draw,
   total,
   goals,
+  darkMode,
 }) => {
   return (
-    <li className="tableTeamPosition">
+    <li className={darkMode ? "tableTeamPosition dark" : "tableTeamPosition"}>
       <div className="position">{index + 1}</div>
-      <div className="teamName">{teams[teamId].name}</div>
+      <div className="teamContent">
+        <img
+          className="teamImage"
+          src={`https://back-of-the-net.s3.amazonaws.com/teams/${teams[teamId].short_name}.svg`}
+          alt={teams[teamId].short_name}
+        />
+        <div className="teamName">{teams[teamId].name}</div>
+      </div>
       <div className="stats">{played}</div>
       <div className="stats">{win}</div>
       <div className="stats">{draw}</div>

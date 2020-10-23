@@ -17,6 +17,7 @@
   --disabled-gray: #bababa;
   --error-bg: #fce7ea;
   --warning-bg: #fefaf1;
+  --border-color: #e6e6e6;
 }
 
 html * {
@@ -87,9 +88,9 @@ button {
 
   .matchesContainer,
   .navbar ul,
-  .livewatchContainer {
+  .livewatchContainer,
+  .tableContainer {
     margin: 0 auto;
-    /* width: 85%; */
   }
 
   .navbar ul {
@@ -103,10 +104,6 @@ button {
   .predictionsMessageContent {
     text-align: left;
   }
-
-  /* .livewatchContainer .playersPredictions .playerPrediction {
-    flex-grow: 1.155;
-  } */
 }
 
 @media (min-width: 840px) {
@@ -118,8 +115,4 @@ button {
     margin: 0 auto;
     max-width: 36rem;
   }
-
-  /* .livewatchContainer .playersPredictions .playerPrediction {
-    flex-grow: 1.155;
-  } */
 }

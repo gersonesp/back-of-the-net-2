@@ -34,12 +34,9 @@ const Table = () => {
     }
   }, [teams]);
 
-  console.log(table);
-
   return (
     <div className={darkMode ? "tableContainer dark" : "tableContainer"}>
-      <div className="pageHeader">
-        <h1>Table</h1>
+      <div className={darkMode ? "tableCard dark" : "tableCard"}>
         <ul className="tableHeader">
           <li className="positionHeader">#</li>
           <li className="clubName">Club</li>
@@ -64,6 +61,7 @@ const Table = () => {
                 draw={draw}
                 total={total}
                 goals={goals}
+                darkMode={darkMode}
               />
             )
           )}
