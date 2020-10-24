@@ -29,6 +29,7 @@
 
 @media (max-width: 840px) {
     .tableTeamPosition {
-        grid-template-columns: 1rem 18rem repeat(6, 1.5rem);
+        grid-template-columns: 1rem 1fr repeat(6, 1.5rem);
+        column-gap: .4rem;
     }
 }
