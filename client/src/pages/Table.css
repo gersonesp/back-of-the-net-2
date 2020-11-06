@@ -51,4 +51,8 @@
         grid-template-columns: 1rem 1fr repeat(6, 1.5rem);
         column-gap: .2rem;
     }
+
+    .positionHeader {
+        padding-right: 1rem;
+    }
 }
