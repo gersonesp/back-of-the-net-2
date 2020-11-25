@@ -44,12 +44,12 @@ const Table = () => {
           <li className="statsHeader">W</li>
           <li className="statsHeader">D</li>
           <li className="statsHeader">L</li>
-          <li className="statsHeader">GF</li>
+          <li className="statsHeader">GD</li>
           <li className="statsHeader">Pts</li>
         </ul>
         <ul>
           {table.map(
-            ({ teamId, played, win, lose, draw, total, goals }, index) => (
+            ({ teamId, played, win, lose, draw, total, goalDiff }, index) => (
               <TableTeamPosition
                 index={index}
                 key={teamId}
@@ -60,7 +60,7 @@ const Table = () => {
                 lose={lose}
                 draw={draw}
                 total={total}
-                goals={goals}
+                goalDiff={goalDiff}
                 darkMode={darkMode}
               />
             )

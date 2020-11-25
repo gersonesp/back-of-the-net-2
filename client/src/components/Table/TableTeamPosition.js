@@ -11,7 +11,7 @@ const TableTeamPosition = ({
   lose,
   draw,
   total,
-  goals,
+  goalDiff,
   darkMode,
 }) => {
   return (
@@ -29,7 +29,7 @@ const TableTeamPosition = ({
       <div className="stats">{win}</div>
       <div className="stats">{draw}</div>
       <div className="stats">{lose}</div>
-      <div className="stats">{goals}</div>
+      <div className="stats">{goalDiff}</div>
       <div className="stats">{total}</div>
     </li>
   );

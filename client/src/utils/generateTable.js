@@ -11,6 +11,7 @@ export const generateTable = (allMatches, teamsArray) => {
         total: 0,
         played: 0,
         goals: 0,
+        goalDiff: 0
       })
   );
 
@@ -42,12 +43,14 @@ export const generateTable = (allMatches, teamsArray) => {
         tableObject[awayTeamId].played++;
         tableObject[homeTeamId].goals += homeTeamScore;
         tableObject[awayTeamId].goals += awayTeamScore;
+        tableObject[homeTeamId].goalDiff += homeTeamScore - awayTeamScore;
+        tableObject[awayTeamId].goalDiff += awayTeamScore - homeTeamScore;
       }
     });
   }
 
   const tableArray = Object.values(tableObject).sort((a, b) => {
-    return b.total - a.total || b.second - a.second;
+    return b.total - a.total || b.goalDiff - a.goalDiff;
   });
 
   return tableArray;
