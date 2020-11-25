@@ -1,6 +1,11 @@
 .kickoffLive {
     display: flex;
     justify-content: space-between;
+    color: var(--medium-gray);
+}
+
+.time {
+    margin-bottom: 1rem;
 }
 
 .live {

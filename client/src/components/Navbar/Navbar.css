@@ -99,3 +99,7 @@
 .darkModeToggle.dark button:hover {
     background: var(--medium-gray);
 }
+
+.navLink:hover {
+    border-bottom: 4px solid var(--purple)!important;
+}

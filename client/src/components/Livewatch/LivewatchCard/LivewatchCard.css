@@ -8,12 +8,3 @@
 .livewatchCard.dark {
     background: var(--dark-gray);
 }
-
-.time {
-    color: #646464;
-    margin-bottom: 1rem;
-}
-
-.time.dark {
-    color: white;
-}
