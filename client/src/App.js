@@ -74,10 +74,9 @@ function App() {
               {user.id && (
                 <>
                   <Navbar />
+                  <Route exact path="/" component={Matches} />
                   <Route path="/livewatch" component={Livewatch} />
                   <Route path="/table" component={Table} />
-                  <Route exact path="/" component={Matches} />
-                  {/* <Route component={Matches} /> */}
                 </>
               )}
 
