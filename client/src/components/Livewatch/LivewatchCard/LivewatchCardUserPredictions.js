@@ -23,8 +23,8 @@ const LivewatchCardUserPredictions = ({
   if (allPredictions.length === 0) {
     return <div />;
   } else {
-    return allPredictions.map((prediction) => (
-      <div key={prediction.userId} className="player">
+    return allPredictions.map((prediction, index) => (
+      <div key={`${prediction.userId}-${index}`} className="player">
         <div className={darkMode ? "playerName dark" : "playerName"}>
           {/* If prediction matches live score, show star image */}
           {gameMatch.team_h_score === prediction.homeTeamScore &&

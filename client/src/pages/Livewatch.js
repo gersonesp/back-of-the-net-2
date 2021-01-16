@@ -35,7 +35,7 @@ const Livewatch = () => {
         }
       });
 
-      newAllGameWeeks.reverse();
+      newAllGameWeeks.sort((a,b) => b - a);
       setAllGameWeeks(newAllGameWeeks);
       setLoading(false);
     };
